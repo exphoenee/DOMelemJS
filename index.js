@@ -119,7 +119,7 @@ const DOMElem = {
   },
 };
 
-const createDOMElem ({
+const createDOMElem = ({
   tag,
   content,
   text,
@@ -255,7 +255,7 @@ const createDOMElem ({
    * and at the end give the elem back for later usage
    */
   return elem;
-}
+};
 
 module.exports = {
   createDOMElem,
