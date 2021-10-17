@@ -14,6 +14,15 @@ function createDOMElem({
   let elem = document.createElement(tag);
 
   /*
+   * add the content
+   */
+  content && (elem.innerHTML = content);
+  /*
+   * add the text
+   */
+  text && (elem.textContent = text);
+
+  /*
    *  add all the attributes they want
    */
   for (let attr in attrs) {
@@ -51,7 +60,6 @@ function createDOMElem({
         styleText.push(`${s}: ${style[s]}`);
       }
       styleText = styleText.join("; ");
-      console.log(styleText);
     }
 
     styleText.split(";").forEach((styleText) => {
@@ -84,7 +92,7 @@ function createDOMElem({
    */
   let eventsToAdd = [];
   /*
-   * Handle event is an object or an array of object, that should be conain:
+   * Handle event is an object or an array of object, that schould be conain:
    * event, what will fire the event?
    * and a cb, that is the callback function
    */
@@ -98,15 +106,6 @@ function createDOMElem({
       elem.addEventListener(newEvent.event, newEvent.cb);
     });
   }
-
-  /*
-   * add the content
-   */
-  content && (elem.innerHTML = content);
-  /*
-   * add the text
-   */
-  text && (elem.textContent = text);
 
   /*
   * Append the created elem to the parent what is given, or add to the body of the Document if not given.
