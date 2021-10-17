@@ -13,6 +13,8 @@
         tag: "div",
         attrs: { id: "app" },
       });
+
+      /* styling is easy */
       createElem({
         tag: "h1",
         text: "Hello World!",
@@ -33,6 +35,26 @@
         parent: app,
         style: ["color: red", "background-color: green"],
         attrs: { id: "title" },
+      });
+
+      /* creating a select */
+      const select = createElem({
+        tag: "select",
+        parent: app,
+        attrs: { id: "selector" },
+        children: [
+          {
+            tag: "option",
+            content: "foo",
+            attr: { value: "foo" },
+          },
+          {
+            tag: "option",
+            parent: select,
+            content: "bar",
+            attr: { value: "bar" },
+          },
+        ],
       });
     </script>
   </body>
