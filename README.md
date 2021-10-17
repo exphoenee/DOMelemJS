@@ -1,6 +1,6 @@
 # DOMelemJS
 
-This lightweight tool is allow you to render HTML lements dynamically form JavaScript!
+This lightweight tool is allow you to render HTML elements dynamically form JavaScript!
 
 There is two approach and two to use it:
 
