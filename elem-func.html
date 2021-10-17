@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="elem-func.js"></script>
+    <script>
+      const app = createElem({
+        tag: "div",
+        attrs: { id: "app" },
+      });
+      createElem({
+        tag: "h1",
+        text: "Hello World!",
+        parent: app,
+        attrs: { id: "title", style: "color: red" },
+      });
+    </script>
+  </body>
+</html>
