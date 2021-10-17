@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="elem-func.js"></script>
+    <script>
+      const app = createElem({
+        tag: "div",
+        attrs: { id: "app" },
+      });
+
+      /* styling is easy */
+      createElem({
+        tag: "h1",
+        text: "Hello World!",
+        parent: app,
+        style: "color: red; background-color: green",
+        attrs: { id: "title" },
+      });
+      createElem({
+        tag: "h2",
+        text: "It's amazing",
+        parent: app,
+        style: { color: "red", "background-color": "green" },
+        attrs: { id: "title" },
+      });
+      createElem({
+        tag: "h3",
+        text: "I can write style as I want to",
+        parent: app,
+        style: ["color: red", "background-color: green"],
+        attrs: { id: "title" },
+      });
+
+      /* creating a select with 2 options and eventHandler */
+      const select = createElem({
+        tag: "select",
+        parent: app,
+        attrs: { id: "selector" },
+        children: [
+          {
+            tag: "option",
+            content: "foo",
+            attr: { value: "foo" },
+          },
+          {
+            tag: "option",
+            content: "bar",
+            attr: { value: "bar" },
+          },
+        ],
+        handleEvent: {
+          event: "change",
+          cb: (e) => console.log(e.target.value),
+        },
+      });
+    </script>
+  </body>
+</html>
