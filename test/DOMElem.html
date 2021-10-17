@@ -15,7 +15,7 @@
 
       /* 1. Úgy is haszálhatom, hogy változóba hozom létre, és azt appendolom külön */
 
-      myDOM.selectControlContainer = Elem.Create({
+      myDOM.selectControlContainer = DOMElem.Create({
         tag: "div",
         attrs: { class: "első próbálkozás" },
       });
@@ -27,8 +27,9 @@
       function generateOption(options) {
         let optionElems = [];
         options.forEach(function (option) {
-          let optionElem = Elem.Create({
+          let optionElem = DOMElem.Create({
             tag: "option",
+
             content: option,
           });
           optionElems.push(optionElem);
@@ -39,7 +40,7 @@
       let animals = ["Maci", "Nyuszi", "Cica", "Kutya"];
       let animalOption = generateOption(animals);
 
-      myDOM.selectControl = Elem.Create({
+      myDOM.selectControl = DOMElem.Create({
         tag: "select",
         attrs: { id: "selectControl" },
         style: { color: "red" },
@@ -47,7 +48,7 @@
         children: animalOption,
       });
 
-      myDOM.selectControl = Elem.Create({
+      myDOM.selectControl = DOMElem.Create({
         tag: "label",
         attrs: { for: "selectControl" },
         targetParent: myDOM.selectControlContainer,
@@ -58,7 +59,7 @@
       let plants = ["Fenyő", "Juhar", "Cédrus", "Mahagóni"];
 
       myDOM.selectControl = myDOM.selectControl.appendChild(
-        Elem.Create({
+        DOMElem.Create({
           tag: "select",
           attrs: { id: "selectControl" },
           targetParent: myDOM.selectControlContainer,
@@ -67,7 +68,7 @@
       );
 
       myDOM.selectControl = myDOM.selectControl.appendChild(
-        Elem.Create({
+        DOMElem.Create({
           tag: "label",
           attrs: { for: "selectControl" },
           targetParent: myDOM.selectControlContainer,
@@ -77,25 +78,25 @@
       /* Példa egy komplexebb struktúra előállítására */
 
       myDOM.dateFilterContainer = document.body.appendChild(
-        Elem.Create({
+        DOMElem.Create({
           tag: "div",
           attrs: { class: "dateFilter-Container", id: "dateFilter-Container" },
           children: [
-            Elem.Create({
+            DOMElem.Create({
               tag: "div",
               attrs: {
                 class: "beginDate-container",
                 id: "beginDate-container",
               },
               children: [
-                Elem.Create({
+                DOMElem.Create({
                   tag: "label",
                   attrs: {
                     class: "beginDate-lable",
                   },
                   content: "Kezdő dátum: ",
                 }),
-                Elem.Create({
+                DOMElem.Create({
                   tag: "input",
                   attrs: {
                     type: "date",
@@ -110,18 +111,18 @@
                 }),
               ],
             }),
-            Elem.Create({
+            DOMElem.Create({
               tag: "div",
               attrs: { class: "endDate-container", id: "endDate-container" },
               children: [
-                Elem.Create({
+                DOMElem.Create({
                   tag: "label",
                   attrs: {
                     class: "endDate-lable",
                   },
                   content: "Befejező dátum: ",
                 }),
-                Elem.Create({
+                DOMElem.Create({
                   tag: "input",
                   attrs: {
                     type: "date",
