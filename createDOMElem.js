@@ -1,4 +1,4 @@
-export function createElem({
+export function createDOMElem({
   tag,
   content,
   text,
@@ -75,7 +75,7 @@ export function createElem({
     }
     childrenArray.forEach((child) => {
       child.parent = elem;
-      createElem(child);
+      createDOMElem(child);
     });
   }
 
