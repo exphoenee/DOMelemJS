@@ -17,7 +17,22 @@
         tag: "h1",
         text: "Hello World!",
         parent: app,
-        attrs: { id: "title", style: "color: red" },
+        style: "color: red; background-color: green",
+        attrs: { id: "title" },
+      });
+      createElem({
+        tag: "h2",
+        text: "It's amazing",
+        parent: app,
+        style: { color: "red", "background-color": "green" },
+        attrs: { id: "title" },
+      });
+      createElem({
+        tag: "h3",
+        text: "I can write style as I want to",
+        parent: app,
+        style: ["color: red", "background-color: green"],
+        attrs: { id: "title" },
       });
     </script>
   </body>
