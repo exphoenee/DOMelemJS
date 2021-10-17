@@ -2,6 +2,21 @@
 
 This lightweight tool is allow you to render HTML elements dynamically form JavaScript!
 
+Installation:
+
+```
+npm i domelemjs
+```
+
+Usage:
+
+```
+const DOMELemjs = riquire('domelemjs')
+
+domelemjs.createDOMElem({tag: "div", attrs: {class: "app"}}) // retunrs and create a <div class="app">...</div
+domelemjs.DOMElem.create({tag: "div", attrs: {class: "app"}}) // retunrs and create a <div class="app">...</div
+```
+
 There is two approach and two to use it:
 
 1. is the Object approach:
@@ -163,3 +178,5 @@ dateFilterContainer = document.body.appendChild(
   })
 );
 ```
+
+Under MIT license.
