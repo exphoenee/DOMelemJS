@@ -7,137 +7,138 @@
     <title>Document</title>
   </head>
   <body>
-    <script src="elem-object.js">
-      <script>
-        /* használata */
+    <script src="elem-object.js"></script>
+    <script>
+      /* használata */
 
-        let myDOM = {};
+      let myDOM = {};
 
-        /* 1. Úgy is haszálhatom, hogy változóba hozom létre, és azt appendolom külön */
+      /* 1. Úgy is haszálhatom, hogy változóba hozom létre, és azt appendolom külön */
 
-        myDOM.selectControlContainer = Elem.Create({
-          tag: "div",
-          attrs: { class: "első próbálkozás" },
-        });
+      myDOM.selectControlContainer = Elem.Create({
+        tag: "div",
+        attrs: { class: "első próbálkozás" },
+      });
 
-        document.body.appendChild(myDOM.selectControlContainer);
+      document.body.appendChild(myDOM.selectControlContainer);
 
-        /* 2. Úgy is használhatom, hogy a szülőelemet már az Elem létrehozásakor megadom neki, és akkor befűzi oda. */
+      /* 2. Úgy is használhatom, hogy a szülőelemet már az Elem létrehozásakor megadom neki, és akkor befűzi oda. */
 
-        function generateOption(options) {
-          let optionElems = [];
-          options.forEach(function (option) {
-            let optionElem = Elem.Create({
-              tag: "option",
-              content: option,
-            });
-            optionElems.push(optionElem);
+      function generateOption(options) {
+        let optionElems = [];
+        options.forEach(function (option) {
+          let optionElem = Elem.Create({
+            tag: "option",
+            content: option,
           });
-          return optionElems;
-        }
+          optionElems.push(optionElem);
+        });
+        return optionElems;
+      }
 
-        let animals = ["Maci", "Nyuszi", "Cica", "Kutya"];
-        let animalOption = generateOption(animals);
+      let animals = ["Maci", "Nyuszi", "Cica", "Kutya"];
+      let animalOption = generateOption(animals);
 
-        myDOM.selectControl = Elem.Create({
+      myDOM.selectControl = Elem.Create({
+        tag: "select",
+        attrs: { id: "selectControl" },
+        style: { color: "red" },
+        targetParent: myDOM.selectControlContainer,
+        children: animalOption,
+      });
+
+      myDOM.selectControl = Elem.Create({
+        tag: "label",
+        attrs: { for: "selectControl" },
+        targetParent: myDOM.selectControlContainer,
+      });
+
+      /* 3. Úgy is haszálhatom, hogy egyből appendolom és azt változónak adom */
+
+      let plants = ["Fenyő", "Juhar", "Cédrus", "Mahagóni"];
+
+      myDOM.selectControl = myDOM.selectControl.appendChild(
+        Elem.Create({
           tag: "select",
           attrs: { id: "selectControl" },
           targetParent: myDOM.selectControlContainer,
-          children: animalOption,
-        });
+          children: generateOption(plants),
+        })
+      );
 
-        myDOM.selectControl = Elem.Create({
+      myDOM.selectControl = myDOM.selectControl.appendChild(
+        Elem.Create({
           tag: "label",
           attrs: { for: "selectControl" },
           targetParent: myDOM.selectControlContainer,
-        });
+        })
+      );
 
-        /* 3. Úgy is haszálhatom, hogy egyből appendolom és azt változónak adom */
+      /* Példa egy komplexebb struktúra előállítására */
 
-        let plants = ["Fenyő", "Juhar", "Cédrus", "Mahagóni"];
-
-        myDOM.selectControl = myDOM.selectControl.appendChild(
-          Elem.Create({
-            tag: "select",
-            attrs: { id: "selectControl" },
-            targetParent: myDOM.selectControlContainer,
-            children: generateOption(plants),
-          })
-        );
-
-        myDOM.selectControl = myDOM.selectControl.appendChild(
-          Elem.Create({
-            tag: "label",
-            attrs: { for: "selectControl" },
-            targetParent: myDOM.selectControlContainer,
-          })
-        );
-
-        /* Példa egy komplexebb struktúra előállítására */
-
-        myDOM.dateFilterContainer = document.body.appendChild(
-          Elem.Create({
-            tag: "div",
-            attrs: { class: "dateFilter-Container", id: "dateFilter-Container" },
-            children: [
-              Elem.Create({
-                tag: "div",
-                attrs: {
-                  class: "beginDate-container",
-                  id: "beginDate-container",
-                },
-                children: [
-                  Elem.Create({
-                    tag: "label",
-                    attrs: {
-                      class: "beginDate-lable",
-                    },
-                    content: "Kezdő dátum: ",
-                  }),
-                  Elem.Create({
-                    tag: "input",
-                    attrs: {
-                      type: "date",
-                      class: "beginDate",
-                      id: "beginDate",
-                    },
-                    eventStarter: "change",
-                    eventFunction: function (e) {
-                      e.preventDefault();
-                      console.log(this.value);
-                    },
-                  }),
-                ],
-              }),
-              Elem.Create({
-                tag: "div",
-                attrs: { class: "endDate-container", id: "endDate-container" },
-                children: [
-                  Elem.Create({
-                    tag: "label",
-                    attrs: {
-                      class: "endDate-lable",
-                    },
-                    content: "Befejező dátum: ",
-                  }),
-                  Elem.Create({
-                    tag: "input",
-                    attrs: {
-                      type: "date",
-                      class: "endDate",
-                      id: "endDate",
-                    },
-                    eventStarter: "change",
-                    eventFunction: function (e) {
-                      e.preventDefault();
-                      console.log(this.value);
-                    },
-                  }),
-                ],
-              }),
-            ],
-          })
-        );
+      myDOM.dateFilterContainer = document.body.appendChild(
+        Elem.Create({
+          tag: "div",
+          attrs: { class: "dateFilter-Container", id: "dateFilter-Container" },
+          children: [
+            Elem.Create({
+              tag: "div",
+              attrs: {
+                class: "beginDate-container",
+                id: "beginDate-container",
+              },
+              children: [
+                Elem.Create({
+                  tag: "label",
+                  attrs: {
+                    class: "beginDate-lable",
+                  },
+                  content: "Kezdő dátum: ",
+                }),
+                Elem.Create({
+                  tag: "input",
+                  attrs: {
+                    type: "date",
+                    class: "beginDate",
+                    id: "beginDate",
+                  },
+                  eventStarter: "change",
+                  eventFunction: function (e) {
+                    e.preventDefault();
+                    console.log(this.value);
+                  },
+                }),
+              ],
+            }),
+            Elem.Create({
+              tag: "div",
+              attrs: { class: "endDate-container", id: "endDate-container" },
+              children: [
+                Elem.Create({
+                  tag: "label",
+                  attrs: {
+                    class: "endDate-lable",
+                  },
+                  content: "Befejező dátum: ",
+                }),
+                Elem.Create({
+                  tag: "input",
+                  attrs: {
+                    type: "date",
+                    class: "endDate",
+                    id: "endDate",
+                  },
+                  eventStarter: "change",
+                  eventFunction: function (e) {
+                    e.preventDefault();
+                    console.log(this.value);
+                  },
+                }),
+              ],
+            }),
+          ],
+        })
+      );
     </script>
   </body>
 </html>
