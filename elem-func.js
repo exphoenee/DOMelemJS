@@ -1,5 +1,14 @@
 "use strict";
-function createElem({ tag, content, style, text, attrs, parent, handleEvent }) {
+function createElem({
+  tag,
+  content,
+  text,
+  attrs,
+  style,
+  children,
+  parent,
+  handleEvent,
+}) {
   /*
    * create the DOM element with the given tag
    */
@@ -55,6 +64,19 @@ function createElem({ tag, content, style, text, attrs, parent, handleEvent }) {
         })
         .join("");
       elem.style[s] = p;
+    });
+  }
+
+  if (children) {
+    let childrenArray = [];
+    if (!Array.isArray(children)) {
+      childrenArray.push(children);
+    } else {
+      childrenArray = children;
+    }
+    childrenArray.forEach((child) => {
+      child.parent = elem;
+      createElem(child);
     });
   }
 
