@@ -43,6 +43,7 @@ let Elem = {
     let eventFunction = parameters.eventFunction || null;
     let content = parameters.content || null;
     let text = parameters.text || null;
+    let style = parameters.style || null;
 
     let targetParent =
       typeof parameters.targetParent == "string"
@@ -61,6 +62,42 @@ let Elem = {
           ? this.noSpecChars(attributes[attr])
           : attributes[attr]
       );
+    }
+
+    /*
+     * Adding stye is possible as:
+     * * a string, with a bunch of style properties, it can be:
+     * * * CCS style (e.g. background-color) or
+     * * * JS/camelCase (e.g. backgroundColor) style formatted version also.
+     * * or an object formatted (e.g. style: { backgroundColor: red })
+     * * or an array with multiple style strings with CSS or JS vesrion, or mixed
+     */
+
+    if (style) {
+      let styleText;
+      if (typeof style === "string") {
+        styleText = style;
+      } else if (Array.isArray(style)) {
+        styleText = style.join("; ");
+      } else if (typeof style === "object") {
+        styleText = [];
+        for (let s in style) {
+          styleText.push(`${s}: ${style[s]}`);
+        }
+        styleText = styleText.join("; ");
+        console.log(styleText);
+      }
+
+      styleText.split(";").forEach((styleText) => {
+        let [s, p] = styleText.split(":").map((c) => c.trim());
+        s = s
+          .split("-")
+          .map((ss, i) => {
+            return i > 0 ? ss.charAt(0).toUpperCase() + ss.slice(1) : ss;
+          })
+          .join("");
+        elem.style[s] = p;
+      });
     }
 
     children.map((child) => {
