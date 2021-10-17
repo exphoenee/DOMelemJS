@@ -55,6 +55,9 @@ export const DOMElem = {
 
     let elem = document.createElement(tag);
 
+    if (content) elem.innerHTML = content;
+    if (text) elem.textContent = text;
+
     for (let attr in attributes) {
       elem.setAttribute(
         attr,
@@ -106,9 +109,6 @@ export const DOMElem = {
         : null;
       elem.appendChild(child);
     });
-
-    if (content) elem.innerHTML = content;
-    if (text) elem.textContent = text;
 
     if (eventStarter && eventFunction)
       elem.addEventListener(eventStarter, eventFunction);
