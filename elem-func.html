@@ -37,7 +37,7 @@
         attrs: { id: "title" },
       });
 
-      /* creating a select */
+      /* creating a select with 2 options and eventHandler */
       const select = createElem({
         tag: "select",
         parent: app,
@@ -50,11 +50,14 @@
           },
           {
             tag: "option",
-            parent: select,
             content: "bar",
             attr: { value: "bar" },
           },
         ],
+        handleEvent: {
+          event: "change",
+          cb: (e) => console.log(e.target.value),
+        },
       });
     </script>
   </body>
