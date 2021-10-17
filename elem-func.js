@@ -1,4 +1,5 @@
-function createElem({ tag, content, text, attrs, parent, handleEvent }) {
+"use strict";
+function createElem({ tag, content, style, text, attrs, parent, handleEvent }) {
   /*
    * create the DOM element with the given tag
    */
@@ -12,14 +13,6 @@ function createElem({ tag, content, text, attrs, parent, handleEvent }) {
       for (let data in attrs[attr]) {
         elem.dataset[data] = attrs[attr][data];
       }
-    } else if (attr === "style") {
-      if (typeof attrs[attr] === "string") {
-        attrs[attr].split(";").forEach((style) => {
-          const styleComponent = style.split(":");
-          console.table(styleComponent);
-        });
-      } else {
-      }
     } else {
       if (Array.isArray(attrs[attr])) {
         elem.setAttribute(attr, attrs[attr].join(" "));
@@ -27,6 +20,42 @@ function createElem({ tag, content, text, attrs, parent, handleEvent }) {
         elem.setAttribute(attr, attrs[attr]);
       }
     }
+  }
+
+  /*
+   * Adding stye is possible as:
+   * * a string, with a bunch of style properties, it can be:
+   * * * CCS style (e.g. background-color) or
+   * * * JS/camelCase (e.g. backgroundColor) style formatted version also.
+   * * or an object formatted (e.g. style: { backgroundColor: red })
+   * * or an array with multiple style strings with CSS or JS vesrion, or mixed
+   */
+
+  if (style) {
+    let styleText;
+    if (typeof style === "string") {
+      styleText = style;
+    } else if (Array.isArray(style)) {
+      styleText = style.join("; ");
+    } else if (typeof style === "object") {
+      styleText = [];
+      for (let s in style) {
+        styleText.push(`${s}: ${style[s]}`);
+      }
+      styleText = styleText.join("; ");
+      console.log(styleText);
+    }
+
+    styleText.split(";").forEach((styleText) => {
+      let [s, p] = styleText.split(":").map((c) => c.trim());
+      s = s
+        .split("-")
+        .map((ss, i) => {
+          return i > 0 ? ss.charAt(0).toUpperCase() + ss.slice(1) : ss;
+        })
+        .join("");
+      elem.style[s] = p;
+    });
   }
 
   /*
