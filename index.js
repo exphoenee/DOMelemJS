@@ -1,43 +1,43 @@
+const noSpecChars = (text, lowercase = false) => {
+  function replaceAll(string, search, replace) {
+    return string.split(search).join(replace);
+  }
+
+  let specialChars = {
+    é: "e",
+    á: "a",
+    ó: "o",
+    ö: "o",
+    ő: "o",
+    ú: "u",
+    ü: "u",
+    ű: "u",
+    í: "i",
+    É: "E",
+    Á: "A",
+    Ó: "O",
+    Ö: "O",
+    Ő: "O",
+    Ú: "U",
+    Ü: "U",
+    Ű: "U",
+    Í: "I",
+    " ": "-",
+    "/": "-",
+    ":": "-",
+    ";": "-",
+    "=": "-",
+  };
+  for (let char in specialChars) {
+    text = replaceAll(text, char, specialChars[char]);
+  }
+  return lowercase ? text.toLowerCase() : text;
+};
+
 const DOMElem = {
-  noSpecChars: function (text, lowercase = false) {
-    function replaceAll(string, search, replace) {
-      return string.split(search).join(replace);
-    }
-
-    let specialChars = {
-      é: "e",
-      á: "a",
-      ó: "o",
-      ö: "o",
-      ő: "o",
-      ú: "u",
-      ü: "u",
-      ű: "u",
-      í: "i",
-      É: "E",
-      Á: "A",
-      Ó: "O",
-      Ö: "O",
-      Ő: "O",
-      Ú: "U",
-      Ü: "U",
-      Ű: "U",
-      Í: "I",
-      " ": "-",
-      "/": "-",
-      ":": "-",
-      ";": "-",
-      "=": "-",
-    };
-    for (let char in specialChars) {
-      text = replaceAll(text, char, specialChars[char]);
-    }
-    return lowercase ? text.toLowerCase() : text;
-  },
-
   Create: function (parameters) {
     let tag = parameters.tag || "div";
-    let attributes = parameters.attributes || {};
+    let attrs = parameters.attrs || {};
     let children = parameters.children || [];
     let eventStarter = parameters.eventStarter || null;
     let eventFunction = parameters.eventFunction || null;
@@ -58,12 +58,10 @@ const DOMElem = {
     if (content) elem.innerHTML = content;
     if (text) elem.textContent = text;
 
-    for (let attr in attributes) {
+    for (let attr in attrs) {
       elem.setAttribute(
         attr,
-        attr == "class" || attr == "id"
-          ? this.noSpecChars(attributes[attr])
-          : attributes[attr]
+        attr == "class" || attr == "id" ? noSpecChars(attrs[attr]) : attrs[attr]
       );
     }
 
@@ -88,7 +86,6 @@ const DOMElem = {
           styleText.push(`${s}: ${style[s]}`);
         }
         styleText = styleText.join("; ");
-        console.log(styleText);
       }
 
       styleText.split(";").forEach((styleText) => {
@@ -152,11 +149,21 @@ const createDOMElem = ({
         elem.dataset[data] = attrs[attr][data];
       }
     } else {
+      let attribute;
       if (Array.isArray(attrs[attr])) {
-        elem.setAttribute(attr, attrs[attr].join(" "));
+        if (attr === "class") {
+          attribute = NoSpecChars(attrs[attr].join(" "));
+        } else {
+          attribute = attrs[attr].join(" ");
+        }
       } else {
-        elem.setAttribute(attr, attrs[attr]);
+        if (attr === "id") {
+          attribute = noSpecChars(attrs[attr]);
+        } else {
+          attribute = attrs[attr];
+        }
       }
+      elem.setAttribute(attr, attribute);
     }
   }
 
@@ -260,4 +267,5 @@ const createDOMElem = ({
 module.exports = {
   createDOMElem,
   DOMElem,
+  noSpecChars,
 };
