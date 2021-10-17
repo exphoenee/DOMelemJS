@@ -1,5 +1,4 @@
-"use strict";
-function createElem({
+export function createElem({
   tag,
   content,
   text,
