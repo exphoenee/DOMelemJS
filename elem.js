@@ -108,7 +108,7 @@ let Elem = {
     });
 
     if (content) elem.innerHTML = content;
-    if (text) elem.text = text;
+    if (text) elem.textContent = text;
 
     if (eventStarter && eventFunction)
       elem.addEventListener(eventStarter, eventFunction);
