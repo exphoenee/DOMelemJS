@@ -1,4 +1,4 @@
-export const Elem = {
+export const DOMElem = {
   noSpecChars: function (text, lowercase = false) {
     function replaceAll(string, search, replace) {
       return string.split(search).join(replace);
