@@ -1,0 +1,25 @@
+{
+  "name": "domelemjs",
+  "version": "1.0.0",
+  "description": "With the help of this package the rendering of HTML elements form JavaScript become a easy job.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/exphoenee/DOMelemJS"
+  },
+  "keywords": [
+    "rendering",
+    "DOM",
+    "dynamic",
+    "webapp"
+  ],
+  "author": "VIKTOR, Bozzay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/exphoenee/DOMelemJS/issues"
+  },
+  "homepage": "https://github.com/exphoenee/DOMelemJS#readme"
+}
