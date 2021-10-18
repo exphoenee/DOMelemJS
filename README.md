@@ -1,6 +1,6 @@
 # DOMelemJS
 
-This lightweight tool is allow you to render HTML elements dynamically form JavaScript!
+This lightweight, zero dependecy tool is allow you to render HTML elements dynamically form JavaScript!
 
 Installation:
 
@@ -11,7 +11,7 @@ npm i domelemjs
 Usage:
 
 ```
-const DOMELemjs = riquire('domelemjs')
+const DOMELemjs = require('domelemjs')
 
 domelemjs.createDOMElem({tag: "div", attrs: {class: "app"}}) // retunrs and create a <div class="app">...</div
 domelemjs.DOMElem.create({tag: "div", attrs: {class: "app"}}) // retunrs and create a <div class="app">...</div
