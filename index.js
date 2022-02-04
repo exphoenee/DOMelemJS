@@ -152,7 +152,7 @@ const createDOMElem = ({
       let attribute;
       if (Array.isArray(attrs[attr])) {
         if (attr === "class") {
-          attribute = NoSpecChars(attrs[attr].join(" "));
+          attribute = attrs[attr].map((a) => noSpecChars(a)).join(" ");
         } else {
           attribute = attrs[attr].join(" ");
         }
@@ -264,10 +264,4 @@ const createDOMElem = ({
    * and at the end give the elem back for later usage
    */
   return elem;
-};
-
-module.exports = {
-  createDOMElem,
-  DOMElem,
-  noSpecChars,
 };
