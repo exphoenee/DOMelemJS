@@ -1,6 +1,6 @@
 {
   "name": "domelemjs",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "With the help of this package the rendering of HTML elements form JavaScript become a easy job.",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/exphoenee/DOMelemJS"
+    "url": "git+https://github.com/exphoenee/DOMelemJS.git"
   },
   "keywords": [
     "rendering",
@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/exphoenee/DOMelemJS/issues"
   },
-  "homepage": "https://github.com/exphoenee/DOMelemJS#readme"
+  "homepage": "https://github.com/exphoenee/DOMelemJS#readme",
+  "directories": {
+    "test": "test"
+  }
 }
