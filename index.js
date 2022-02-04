@@ -207,11 +207,13 @@ const createDOMElem = ({
     if (!Array.isArray(children)) {
       childrenArray.push(children);
     } else {
-      childrenArray = children;
+      childrenArray = [...children];
     }
-    childrenArray.forEach((child) => {
-      child.parent = elem;
-      createDOMElem(child);
+    childrenArray.map((child) => {
+      typeof child != "object"
+        ? (child = document.createTextNode(child))
+        : null;
+      elem.appendChild(child);
     });
   }
 
