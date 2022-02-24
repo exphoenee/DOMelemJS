@@ -47,8 +47,8 @@ const DOMElem = {
 
     let targetParent =
       typeof parameters.targetParent == "string"
-        ? document.querySelector(parameters.targetParent) ||
-          document.getElementById(parameters.targetParent)
+        ? document.getElementById(parameters.targetParent) ||
+          document.querySelector(parameters.targetParent)
         : typeof parameters.targetParent == "object"
         ? parameters.targetParent
         : null;
@@ -144,10 +144,20 @@ const createDOMElem = ({
    *  add all the attributes they want
    */
   for (let attr in attrs) {
-    if (attr === "dataset") {
-      for (let data in attrs[attr]) {
-        elem.dataset[data] = attrs[attr][data];
+    if (attr === "checked") {
+      elem.checked = attrs[attr];
+    } else if (attr === "dataset") {
+      let dataset;
+      if (Array.isArray(attrs[attr])) {
+        dataset = attrs[attr];
+      } else {
+        dataset = [attrs[attr]];
       }
+      dataset.map((data) => {
+        for (let d in data) {
+          elem.dataset[d] = data[d];
+        }
+      });
     } else {
       let attribute;
       if (Array.isArray(attrs[attr])) {
