@@ -191,15 +191,19 @@ const createDOMElem = ({
 
   if (style) {
     let styleTxts;
-    if (typeof style === "string") {
-      styleTxts = style;
-    } else if (Array.isArray(style)) {
-      styleTxts = style.join("; ");
-    } else if (typeof style === "object") {
-      styleTxts = Object.keys(style)
-        .map((styleTxt) => `${styleTxt}: ${style[styleTxt]}`)
-        .join("; ");
-    }
+    //console.log(elem, makeThatArray(style));
+    makeThatArray(style).forEach((styleElem) => {
+      console.log(elem, Object.keys(styleElem));
+      if (typeof styleElem === "object") {
+        styleTxts = Object.keys(styleElem)
+          .map((styleTxt) => `${styleTxt}: ${styleElem[styleTxt]}`)
+          .join("; ");
+        //console.log(elem, "Object");
+      } else {
+        styleTxts = makeThatArray(styleElem).join("; ");
+      }
+    });
+    //console.log(elem, styleTxts);
 
     styleTxts.split(";").forEach((styleTxts) => {
       let [styleTxt, val] = styleTxts.split(":").map((c) => c.trim());
