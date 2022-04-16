@@ -16,7 +16,7 @@
 
       /* styling is easy */
       createDOMElem({
-        tag: "h1",
+        tag: h1,
         text: "Hello World!",
         parent: app,
         style: "color: red; background-color: green",
@@ -27,7 +27,7 @@
         },
       });
       createDOMElem({
-        tag: "h2",
+        tag: h2,
         text: "It's amazing",
         parent: app,
         style: { color: "red", backgroundColor: "pink" },
@@ -41,14 +41,14 @@
         ],
       });
       createDOMElem({
-        tag: "h3",
+        tag: h3,
         text: "I can write style as I want to",
         parent: app,
         style: ["color: red", "background-color: blue"],
         attrs: { id: "title3" },
       });
       createDOMElem({
-        tag: "h4",
+        tag: h4,
         text: "Awesome",
         parent: app,
         style: [{ color: "red" }, { backgroundColor: "green" }],
@@ -56,18 +56,18 @@
       });
 
       /* creating a select with 2 options and eventHandler */
-      const select = createDOMElem({
-        tag: "select",
+      const selector = createDOMElem({
+        tag: select,
         parent: app,
         attrs: { id: "selector" },
         children: [
           {
-            tag: "option",
+            tag: option,
             text: "foo",
             attrs: { value: "foo" },
           },
           {
-            tag: "option",
+            tag: option,
             text: "bar",
             attrs: { value: "bar" },
           },
@@ -76,6 +76,19 @@
           event: "change",
           cb: (e) => console.log(e.target.value),
         },
+      });
+
+      DOMElem.Create({
+        tag: div,
+        parent: app,
+        children: [
+          DOMElem.Create({
+            tag: label,
+            content: "Write Something",
+            attrs: { for: "inputText" },
+          }),
+          DOMElem.Create({ tag: "input", attrs: { id: "inputText" } }),
+        ],
       });
     </script>
   </body>
