@@ -143,7 +143,8 @@ const createDOMElem = ({
   /*
    *  add all the attributes they want
    */
-  for (let attr in attrs) {
+
+  Object.keys(attrs).forEach((attr) => {
     if (attr === "checked") {
       elem.checked = attrs[attr];
     } else if (attr === "dataset") {
@@ -175,7 +176,7 @@ const createDOMElem = ({
       }
       elem.setAttribute(attr, attribute);
     }
-  }
+  });
 
   /*
    * Adding stye is possible as:
@@ -220,10 +221,9 @@ const createDOMElem = ({
       childrenArray = [...children];
     }
     childrenArray.map((child) => {
-      typeof child != "object"
-        ? (child = document.createTextNode(child))
-        : null;
-      elem.appendChild(child);
+      let childElem = child;
+      if (typeof child === "object") childElem = createDOMElem(child);
+      elem.appendChild(childElem);
     });
   }
 
