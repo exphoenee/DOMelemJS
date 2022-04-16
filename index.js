@@ -151,6 +151,7 @@ const createDOMElem = ({
   /*
    *  add all the attributes they want
    */
+
   Object.keys(attrs).forEach((attr) => {
     if (attr === "checked") {
       elem.checked = attrs[attr];
@@ -158,22 +159,15 @@ const createDOMElem = ({
       makeThatArray(attrs[attr]).map((data) =>
         Object.keys(data).forEach((d) => (elem.dataset[d] = data[d]))
       );
+    } else if (attr === "class" || attr === "id") {
+      elem.setAttribute(
+        attr,
+        makeThatArray(attrs[attr])
+          .map((a) => noSpecChars(a))
+          .join(" ")
+      );
     } else {
-      let attribute;
-      if (Array.isArray(attrs[attr])) {
-        if (attr === "class") {
-          attribute = attrs[attr].map((a) => noSpecChars(a)).join(" ");
-        } else {
-          attribute = attrs[attr].join(" ");
-        }
-      } else {
-        if (attr === "id") {
-          attribute = noSpecChars(attrs[attr]);
-        } else {
-          attribute = attrs[attr];
-        }
-      }
-      elem.setAttribute(attr, attribute);
+      elem.setAttribute(attr, makeThatArray(attrs[attr]).join(" "));
     }
   });
 
