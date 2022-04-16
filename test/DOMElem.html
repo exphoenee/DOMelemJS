@@ -25,16 +25,12 @@
       /* 2. Úgy is használhatom, hogy a szülőelemet már az Elem létrehozásakor megadom neki, és akkor befűzi oda. */
 
       function generateOption(options) {
-        let optionElems = [];
-        options.forEach(function (option) {
-          let optionElem = DOMElem.Create({
+        return options.map((option) =>
+          DOMElem.Create({
             tag: "option",
-
-            content: option,
-          });
-          optionElems.push(optionElem);
-        });
-        return optionElems;
+            text: option,
+          })
+        );
       }
 
       let animals = ["Maci", "Nyuszi", "Cica", "Kutya"];
@@ -50,6 +46,7 @@
 
       myDOM.selectControl = DOMElem.Create({
         tag: "label",
+        text: "állatkák:",
         attrs: { for: "selectControl" },
         targetParent: myDOM.selectControlContainer,
       });
@@ -70,6 +67,7 @@
       myDOM.selectControl = myDOM.selectControl.appendChild(
         DOMElem.Create({
           tag: "label",
+          text: "fák:",
           attrs: { for: "selectControl" },
           targetParent: myDOM.selectControlContainer,
         })
@@ -94,7 +92,7 @@
                   attrs: {
                     class: "beginDate-lable",
                   },
-                  content: "Kezdő dátum: ",
+                  text: "Kezdő dátum: ",
                 }),
                 DOMElem.Create({
                   tag: "input",
@@ -120,7 +118,7 @@
                   attrs: {
                     class: "endDate-lable",
                   },
-                  content: "Befejező dátum: ",
+                  text: "Befejező dátum: ",
                 }),
                 DOMElem.Create({
                   tag: "input",
