@@ -40,10 +40,9 @@ const createDOMElem = ({
         } else {
           elem.setAttribute(
             attr,
-            (noSpecChAttrs.includes(attr)
-              ? makeThatArray(atts[attr]).map((a) => noSpecChars(a))
-              : makeThatArray(atts[attr])
-            ).join(" ")
+            makeThatArray(atts[attr])
+              .map((a) => (noSpecChAttrs.includes(attr) ? noSpecChars(a) : a))
+              .join(" ")
           );
         }
       })
