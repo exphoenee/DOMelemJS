@@ -143,7 +143,6 @@ const createDOMElem = ({
   /*
    *  add all the attributes they want
    */
-
   Object.keys(attrs).forEach((attr) => {
     if (attr === "checked") {
       elem.checked = attrs[attr];
@@ -187,27 +186,30 @@ const createDOMElem = ({
    * * or an array with multiple style strings with CSS or JS vesrion, or mixed
    */
 
+  function makeCamelCase(s) {
+    return s
+      .split("-")
+      .map((ss, i) => {
+        return i > 0 ? ss.charAt(0).toUpperCase() + ss.slice(1) : ss;
+      })
+      .join("");
+  }
+
   if (style) {
-    let styleText;
+    let styleTxts;
     if (typeof style === "string") {
-      styleText = style;
+      styleTxts = style;
     } else if (Array.isArray(style)) {
-      styleText = style.join(";");
+      styleTxts = style.join("; ");
     } else if (typeof style === "object") {
-      styleText = Object.keys(style)
-        .map((s) => `${s}: ${style[s]}`)
-        .join(";");
+      styleTxts = Object.keys(style)
+        .map((styleTxt) => `${styleTxt}: ${style[styleTxt]}`)
+        .join("; ");
     }
 
-    styleText.split(";").forEach((styleText) => {
-      let [s, p] = styleText.split(":").map((c) => c.trim());
-      s = s
-        .split("-")
-        .map((ss, i) => {
-          return i > 0 ? ss.charAt(0).toUpperCase() + ss.slice(1) : ss;
-        })
-        .join("");
-      elem.style[s] = p;
+    styleTxts.split(";").forEach((styleTxts) => {
+      let [styleTxt, val] = styleTxts.split(":").map((c) => c.trim());
+      elem.style[makeCamelCase(styleTxt)] = val;
     });
   }
 
