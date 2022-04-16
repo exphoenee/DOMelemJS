@@ -20,7 +20,11 @@
         text: "Hello World!",
         parent: app,
         style: "color: red; background-color: green",
-        attrs: { id: "title1", dataset: { text: "redText" } },
+        attrs: {
+          id: "title1",
+          class: "áéőúóüűöí/*-",
+          dataset: { text: "redText" },
+        },
       });
       createDOMElem({
         tag: "h2",
