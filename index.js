@@ -1,90 +1,3 @@
-const DOMElem = {
-  Create: function (parameters) {
-    let tag = parameters.tag || "div";
-    let attrs = parameters.attrs || {};
-    let children = parameters.children || [];
-    let eventStarter = parameters.eventStarter || null;
-    let eventFunction = parameters.eventFunction || null;
-    let content = parameters.content || null;
-    let text = parameters.text || null;
-    let style = parameters.style || null;
-
-    let targetParent =
-      typeof parameters.targetParent == "string"
-        ? document.getElementById(parameters.targetParent) ||
-          document.querySelector(parameters.targetParent)
-        : typeof parameters.targetParent == "object"
-        ? parameters.targetParent
-        : null;
-
-    let elem = document.createElement(tag);
-
-    if (content) elem.innerHTML = content;
-    if (text) elem.textContent = text;
-
-    attrs &&
-      Object.keys(attrs).forEach((attr) => {
-        if (attr === "checked") {
-          elem.checked = attrs[attr];
-        } else if (attr === "dataset") {
-          makeThatArray(attrs[attr]).map((data) =>
-            Object.keys(data).forEach((d) => (elem.dataset[d] = data[d]))
-          );
-        } else if (attr === "class" || attr === "id") {
-          elem.setAttribute(
-            attr,
-            makeThatArray(attrs[attr])
-              .map((a) => noSpecChars(a))
-              .join(" ")
-          );
-        } else {
-          elem.setAttribute(attr, makeThatArray(attrs[attr]).join(" "));
-        }
-      });
-
-    /*
-     * Adding stye is possible as:
-     * * a string, with a bunch of style properties, it can be:
-     * * * CCS style (e.g. background-color) or
-     * * * JS/camelCase (e.g. backgroundColor) style formatted version also.
-     * * or an object formatted (e.g. style: { backgroundColor: red })
-     * * or an array with multiple style strings with CSS or JS vesrion, or mixed
-     */
-
-    style &&
-      makeThatArray(style)
-        .map((styleElem) => {
-          if (typeof styleElem === "object") {
-            return Object.keys(styleElem)
-              .map((styleTxt) => `${styleTxt}: ${styleElem[styleTxt]}`)
-              .join("; ");
-          } else {
-            return makeThatArray(styleElem).join("; ");
-          }
-        })
-        .join("; ")
-        .split(";")
-        .forEach((styleTxts) => {
-          let [styleTxt, val] = styleTxts.split(":").map((c) => c.trim());
-          elem.style[makeCamelCase(styleTxt)] = val;
-        });
-
-    children &&
-      makeThatArray(children).map((child) => {
-        let childElem = child;
-        if (typeof child === "object") childElem = createDOMElem(child);
-        elem.appendChild(childElem);
-      });
-
-    if (eventStarter && eventFunction)
-      elem.addEventListener(eventStarter, eventFunction);
-
-    if (targetParent) targetParent.appendChild(elem);
-
-    return elem;
-  },
-};
-
 const createDOMElem = ({
   tag,
   content,
@@ -205,6 +118,11 @@ const createDOMElem = ({
    * and at the end give the elem back for later usage
    */
   return elem;
+};
+
+/* object caller of the funcion */
+const DOMElem = {
+  Create: createDOMElem,
 };
 
 /******************/
