@@ -26,6 +26,8 @@ const createDOMElem = ({
    *  add all the attributes they want
    */
 
+  const noSpecChAttrs = ["class", "id"];
+
   attrs &&
     makeThatArray(attrs).forEach((atts) =>
       Object.keys(atts).forEach((attr) => {
@@ -35,15 +37,14 @@ const createDOMElem = ({
           makeThatArray(atts[attr]).map((data) =>
             Object.keys(data).forEach((d) => (elem.dataset[d] = data[d]))
           );
-        } else if (attr === "class" || attr === "id") {
+        } else {
           elem.setAttribute(
             attr,
-            makeThatArray(atts[attr])
-              .map((a) => noSpecChars(a))
-              .join(" ")
+            (noSpecChAttrs.includes(attr)
+              ? makeThatArray(atts[attr]).map((a) => noSpecChars(a))
+              : makeThatArray(atts[attr])
+            ).join(" ")
           );
-        } else {
-          elem.setAttribute(attr, makeThatArray(atts[attr]).join(" "));
         }
       })
     );
@@ -157,24 +158,24 @@ const noSpecChars = (text, lowercase = false) => {
     Ű: "U",
     Í: "I",
     " ": "-",
-    "/": "-",
-    ":": "-",
-    ";": "-",
-    "=": "-",
+    "/": "",
+    ":": "",
+    ";": "",
+    "=": "",
+    "*": "",
+    "?": "",
   };
-  for (let char in specialChars) {
-    text = replaceAll(text, char, specialChars[char]);
-  }
+
+  Object.keys(specialChars).forEach(
+    (char) => (text = replaceAll(text, char, specialChars[char]))
+  );
+
   return lowercase ? text.toLowerCase() : text;
 };
 
-/* check is it is array do nothing, if not maki it array */
+/* check is it is array do nothing, if not make it array */
 const makeThatArray = (arr) => {
-  if (Array.isArray(arr)) {
-    return arr;
-  } else {
-    return [arr];
-  }
+  return Array.isArray(arr) ? arr : [arr];
 };
 
 /* removing the "-" symbol form the string adn makind the afterward word to uppercase, that is named as camelCase */
