@@ -37,18 +37,18 @@
       let animalOption = generateOption(animals);
 
       myDOM.selectControl = DOMElem.Create({
+        tag: "label",
+        text: "állatkák:",
+        attrs: { for: "selectControl" },
+        targetParent: myDOM.selectControlContainer,
+      });
+
+      myDOM.selectControl = DOMElem.Create({
         tag: "select",
         attrs: { id: "selectControl" },
         style: { color: "red" },
         targetParent: myDOM.selectControlContainer,
         children: animalOption,
-      });
-
-      myDOM.selectControl = DOMElem.Create({
-        tag: "label",
-        text: "állatkák:",
-        attrs: { for: "selectControl" },
-        targetParent: myDOM.selectControlContainer,
       });
 
       /* 3. Úgy is haszálhatom, hogy egyből appendolom és azt változónak adom */
@@ -57,19 +57,18 @@
 
       myDOM.selectControl = myDOM.selectControl.appendChild(
         DOMElem.Create({
-          tag: "select",
-          attrs: { id: "selectControl" },
-          targetParent: myDOM.selectControlContainer,
-          children: generateOption(plants),
-        })
-      );
-
-      myDOM.selectControl = myDOM.selectControl.appendChild(
-        DOMElem.Create({
           tag: "label",
           text: "fák:",
           attrs: { for: "selectControl" },
           targetParent: myDOM.selectControlContainer,
+        })
+      );
+      myDOM.selectControl = myDOM.selectControl.appendChild(
+        DOMElem.Create({
+          tag: "select",
+          attrs: { id: "selectControl" },
+          targetParent: myDOM.selectControlContainer,
+          children: generateOption(plants),
         })
       );
 
