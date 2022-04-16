@@ -218,20 +218,12 @@ const createDOMElem = ({
 
   /*
    * Add the eventListener or more eventListeners it hey comes in array
-   */
-  let eventsToAdd = [];
-  /*
    * Handle event is an object or an array of object, that schould be conain:
    * event, what will fire the event?
    * and a cb, that is the callback function
    */
   if (handleEvent) {
-    if (Array.isArray(handleEvent)) {
-      eventsToAdd = [...handleEvent];
-    } else {
-      eventsToAdd.push(handleEvent);
-    }
-    eventsToAdd.forEach((newEvent) => {
+    makeThatArray(handleEvent).forEach((newEvent) => {
       elem.addEventListener(newEvent.event, newEvent.cb);
     });
   }
