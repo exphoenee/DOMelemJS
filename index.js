@@ -27,24 +27,26 @@ const createDOMElem = ({
    */
 
   attrs &&
-    Object.keys(attrs).forEach((attr) => {
-      if (attr === "checked") {
-        elem.checked = attrs[attr];
-      } else if (attr === "dataset") {
-        makeThatArray(attrs[attr]).map((data) =>
-          Object.keys(data).forEach((d) => (elem.dataset[d] = data[d]))
-        );
-      } else if (attr === "class" || attr === "id") {
-        elem.setAttribute(
-          attr,
-          makeThatArray(attrs[attr])
-            .map((a) => noSpecChars(a))
-            .join(" ")
-        );
-      } else {
-        elem.setAttribute(attr, makeThatArray(attrs[attr]).join(" "));
-      }
-    });
+    makeThatArray(attrs).forEach((atts) =>
+      Object.keys(atts).forEach((attr) => {
+        if (attr === "checked") {
+          elem.checked = atts[attr];
+        } else if (attr === "dataset") {
+          makeThatArray(atts[attr]).map((data) =>
+            Object.keys(data).forEach((d) => (elem.dataset[d] = data[d]))
+          );
+        } else if (attr === "class" || attr === "id") {
+          elem.setAttribute(
+            attr,
+            makeThatArray(atts[attr])
+              .map((a) => noSpecChars(a))
+              .join(" ")
+          );
+        } else {
+          elem.setAttribute(attr, makeThatArray(atts[attr]).join(" "));
+        }
+      })
+    );
 
   /*
    * Adding stye is possible as:
