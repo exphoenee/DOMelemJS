@@ -190,25 +190,22 @@ const createDOMElem = ({
   }
 
   if (style) {
-    let styleTxts;
-    //console.log(elem, makeThatArray(style));
-    makeThatArray(style).forEach((styleElem) => {
-      console.log(elem, Object.keys(styleElem));
-      if (typeof styleElem === "object") {
-        styleTxts = Object.keys(styleElem)
-          .map((styleTxt) => `${styleTxt}: ${styleElem[styleTxt]}`)
-          .join("; ");
-        //console.log(elem, "Object");
-      } else {
-        styleTxts = makeThatArray(styleElem).join("; ");
-      }
-    });
-    //console.log(elem, styleTxts);
-
-    styleTxts.split(";").forEach((styleTxts) => {
-      let [styleTxt, val] = styleTxts.split(":").map((c) => c.trim());
-      elem.style[makeCamelCase(styleTxt)] = val;
-    });
+    makeThatArray(style)
+      .map((styleElem) => {
+        if (typeof styleElem === "object") {
+          return Object.keys(styleElem)
+            .map((styleTxt) => `${styleTxt}: ${styleElem[styleTxt]}`)
+            .join("; ");
+        } else {
+          return makeThatArray(styleElem).join("; ");
+        }
+      })
+      .join("; ")
+      .split(";")
+      .forEach((styleTxts) => {
+        let [styleTxt, val] = styleTxts.split(":").map((c) => c.trim());
+        elem.style[makeCamelCase(styleTxt)] = val;
+      });
   }
 
   if (children) {
