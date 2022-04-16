@@ -192,13 +192,11 @@ const createDOMElem = ({
     if (typeof style === "string") {
       styleText = style;
     } else if (Array.isArray(style)) {
-      styleText = style.join("; ");
+      styleText = style.join(";");
     } else if (typeof style === "object") {
-      styleText = [];
-      for (let s in style) {
-        styleText.push(`${s}: ${style[s]}`);
-      }
-      styleText = styleText.join("; ");
+      styleText = Object.keys(style)
+        .map((s) => `${s}: ${style[s]}`)
+        .join(";");
     }
 
     styleText.split(";").forEach((styleText) => {
