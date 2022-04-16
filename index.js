@@ -209,13 +209,7 @@ const createDOMElem = ({
   }
 
   if (children) {
-    let childrenArray = [];
-    if (!Array.isArray(children)) {
-      childrenArray.push(children);
-    } else {
-      childrenArray = [...children];
-    }
-    childrenArray.map((child) => {
+    makeThatArray(children).map((child) => {
       let childElem = child;
       if (typeof child === "object") childElem = createDOMElem(child);
       elem.appendChild(childElem);
