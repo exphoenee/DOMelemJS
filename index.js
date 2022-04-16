@@ -77,9 +77,9 @@ const createDOMElem = ({
 
   children &&
     makeThatArray(children).map((child) => {
-      let childElem = child;
-      if (typeof child === "object") childElem = createDOMElem(child);
-      elem.appendChild(childElem);
+      elem.appendChild(
+        typeof child === "object" ? createDOMElem(child) : child
+      );
     });
 
   /*
