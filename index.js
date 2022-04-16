@@ -140,6 +140,14 @@ const createDOMElem = ({
    */
   text && (elem.textContent = text);
 
+  function makeThatArray(arr) {
+    if (Array.isArray(arr)) {
+      return arr;
+    } else {
+      return [arr];
+    }
+  }
+
   /*
    *  add all the attributes they want
    */
@@ -147,17 +155,9 @@ const createDOMElem = ({
     if (attr === "checked") {
       elem.checked = attrs[attr];
     } else if (attr === "dataset") {
-      let dataset;
-      if (Array.isArray(attrs[attr])) {
-        dataset = attrs[attr];
-      } else {
-        dataset = [attrs[attr]];
-      }
-      dataset.map((data) => {
-        for (let d in data) {
-          elem.dataset[d] = data[d];
-        }
-      });
+      makeThatArray(attrs[attr]).map((data) =>
+        Object.keys(data).forEach((d) => (elem.dataset[d] = data[d]))
+      );
     } else {
       let attribute;
       if (Array.isArray(attrs[attr])) {
