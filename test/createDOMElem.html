@@ -27,10 +27,14 @@
         text: "It's amazing",
         parent: app,
         style: { color: "red", backgroundColor: "pink" },
-        attrs: {
-          id: "title2",
-          dataset: [{ text: "redText" }, { bg: "greenBG" }],
-        },
+        attrs: [
+          {
+            id: "title2",
+          },
+          {
+            dataset: [{ text: "redText" }, { bg: "greenBG" }],
+          },
+        ],
       });
       createDOMElem({
         tag: "h3",
