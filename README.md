@@ -87,12 +87,12 @@ const select = createDOMElem({
   children: [
     {
       tag: "option",
-      content: "foo",
+      text: "foo",
       attr: { value: "foo" },
     },
     {
       tag: "option",
-      content: "bar",
+      text: "bar",
       attr: { value: "bar" },
     },
   ],
