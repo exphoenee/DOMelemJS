@@ -40,14 +40,14 @@
         tag: "label",
         text: "állatkák:",
         attrs: { for: "selectControl" },
-        targetParent: myDOM.selectControlContainer,
+        parent: myDOM.selectControlContainer,
       });
 
       myDOM.selectControl = DOMElem.Create({
         tag: "select",
         attrs: { id: "selectControl" },
         style: { color: "red" },
-        targetParent: myDOM.selectControlContainer,
+        parent: myDOM.selectControlContainer,
         children: animalOption,
       });
 
@@ -60,14 +60,14 @@
           tag: "label",
           text: "fák:",
           attrs: { for: "selectControl" },
-          targetParent: myDOM.selectControlContainer,
+          parent: myDOM.selectControlContainer,
         })
       );
       myDOM.selectControl = myDOM.selectControl.appendChild(
         DOMElem.Create({
           tag: "select",
           attrs: { id: "selectControl" },
-          targetParent: myDOM.selectControlContainer,
+          parent: myDOM.selectControlContainer,
           children: generateOption(plants),
         })
       );
