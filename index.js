@@ -76,12 +76,11 @@ const createDOMElem = ({
       });
 
   children &&
-    makeThatArray(children).forEach((child) => {
-      console.log(child);
+    makeThatArray(children).forEach((child) =>
       elem.appendChild(
         child instanceof HTMLElement ? child : createDOMElem(child)
-      );
-    });
+      )
+    );
 
   /*
    * Add the eventListener or more eventListeners it hey comes in array
