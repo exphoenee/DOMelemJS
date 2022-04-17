@@ -84,7 +84,7 @@ const createDOMElem = ({
 
   /*
    * Add the eventListener or more eventListeners it hey comes in array
-   * Handle event is an object or an array of object, that schould be conain:
+   * Handle event is an object or an array of object, that should be contain:
    * event, what will fire the event?
    * and a cb, that is the callback function
    */
