@@ -76,9 +76,10 @@ const createDOMElem = ({
       });
 
   children &&
-    makeThatArray(children).map((child) => {
+    makeThatArray(children).forEach((child) => {
+      console.log(child);
       elem.appendChild(
-        typeof child === "object" ? createDOMElem(child) : child
+        child instanceof HTMLElement ? child : createDOMElem(child)
       );
     });
 
