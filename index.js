@@ -89,9 +89,9 @@ const createDOMElem = ({
    * and a cb, that is the callback function
    */
   handleEvent &&
-    makeThatArray(handleEvent).forEach((newEvent) => {
-      elem.addEventListener(newEvent.event, newEvent.cb);
-    });
+    makeThatArray(handleEvent).forEach((newEvent) =>
+      elem.addEventListener(newEvent.event, newEvent.cb)
+    );
 
   /*
   * Append the created elem to the parent what is given, or add to the body of the Document if not given.
