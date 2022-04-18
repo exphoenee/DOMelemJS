@@ -31,19 +31,21 @@ const createDOMElem = ({
   attrs &&
     makeThatArray(attrs).forEach((atts) =>
       Object.keys(atts).forEach((attr) => {
-        if (attr === "checked") {
-          elem.checked = atts[attr];
-        } else if (attr === "dataset") {
-          makeThatArray(atts[attr]).map((data) =>
-            Object.keys(data).forEach((d) => (elem.dataset[d] = data[d]))
-          );
-        } else {
-          elem.setAttribute(
-            attr,
-            makeThatArray(atts[attr])
-              .map((a) => (noSpecChAttrs.includes(attr) ? noSpecChars(a) : a))
-              .join(" ")
-          );
+        if (atts[attr]) {
+          if (attr === "checked") {
+            elem.checked = atts[attr];
+          } else if (attr === "dataset") {
+            makeThatArray(atts[attr]).map((data) =>
+              Object.keys(data).forEach((d) => (elem.dataset[d] = data[d]))
+            );
+          } else {
+            elem.setAttribute(
+              attr,
+              makeThatArray(atts[attr])
+                .map((a) => (noSpecChAttrs.includes(attr) ? noSpecChars(a) : a))
+                .join(" ")
+            );
+          }
         }
       })
     );
