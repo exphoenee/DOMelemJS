@@ -81,7 +81,7 @@ const createDOMElem = ({
   children &&
     makeThatArray(children).forEach((child) =>
       elem.appendChild(
-        child instanceof HTMLElement ? child : createDOMElem(child)
+        child instanceof HTMLElement ? child : createDOMElem(child)[0]
       )
     );
 
@@ -126,13 +126,14 @@ const createDOMElem = ({
   /*
    * and at the end give the elem back for later usage
    */
-  return [elem, appendElem];
+  return [elem, appendElem, append];
 };
 
 /* object caller of the funcion */
 const DOMElem = {
   Create: createDOMElem[0],
   Append: createDOMElem[1],
+  Appneded: createDOMElem[2],
 };
 
 /******************/
