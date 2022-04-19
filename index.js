@@ -7,6 +7,7 @@ const createDOMElem = ({
   children,
   parent,
   handleEvent,
+  append = true,
 }) => {
   /*
    * create the DOM element with the given tag
@@ -116,17 +117,22 @@ const createDOMElem = ({
     }
   } else parent = document.querySelector("body");
 
-  parent.appendChild(elem);
+  const appendElem = () => {
+    parent.appendChild(elem);
+  };
+
+  append && appendElem();
 
   /*
    * and at the end give the elem back for later usage
    */
-  return elem;
+  return [elem, appendElem];
 };
 
 /* object caller of the funcion */
 const DOMElem = {
-  Create: createDOMElem,
+  Create: createDOMElem[0],
+  Append: createDOMElem[1],
 };
 
 /******************/
