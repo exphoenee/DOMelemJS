@@ -92,8 +92,12 @@ const createDOMElem = ({
    * and a cb, that is the callback function
    */
   handleEvent &&
-    makeThatArray(handleEvent).forEach((newEvent) =>
-      elem.addEventListener(newEvent.event, newEvent.cb)
+    makeThatArray(handleEvent).forEach(
+      (newEvent) =>
+        newEvent &&
+        newEvent.event &&
+        newEvent.cb &&
+        elem.addEventListener(newEvent.event, newEvent.cb)
     );
 
   /*
@@ -980,7 +984,7 @@ const noSpecChars = (text, lowercase = false) => {
 
 /* check is it is array do nothing, if not make it array */
 const makeThatArray = (arr) => {
-  return Array.isArray(arr) ? arr : [arr];
+  return arr ? (Array.isArray(arr) ? arr : [arr]) : [];
 };
 
 /* removing the "-" symbol form the string adn makind the afterward word to uppercase, that is named as camelCase */
