@@ -132,8 +132,7 @@ const createDOMElem = ({
 /* object caller of the funcion */
 const DOMElem = {
   Create: createDOMElem[0],
-  Append: createDOMElem[1],
-  Appneded: createDOMElem[2],
+  Append: createDOMElem,
 };
 
 /******************/
