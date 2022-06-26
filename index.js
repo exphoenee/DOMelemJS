@@ -110,11 +110,12 @@ const createDOMElem = ({
         * CLass
   */
   if (parent) {
+    const firstChars = ["#", "."];
     if (typeof parent === "string") {
-      if ("." in parent || "#" in parent) {
+      if (parent.charAt(0) in firstChars) {
         parent = document.querySelector(parent);
       } else {
-        parent = [".", "#"]
+        parent = firstChars
           .map((prep) => {
             return document.querySelector(prep + parent);
           })
