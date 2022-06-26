@@ -121,7 +121,7 @@ const createDOMElem = ({
           })
           .filter((pe) => {
             return pe !== null;
-          });
+          })[0];
       }
     }
   } else parent = document.querySelector("body");
