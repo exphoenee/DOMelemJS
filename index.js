@@ -111,13 +111,17 @@ const createDOMElem = ({
   */
   if (parent) {
     if (typeof parent === "string") {
-      parent = [".", "#"]
-        .map((prep) => {
-          return document.querySelector(prep + parent);
-        })
-        .filter((pe) => {
-          return pe !== null;
-        })[0];
+      if ("." in parent || "#" in parent) {
+        parent = document.querySelector(parent);
+      } else {
+        parent = [".", "#"]
+          .map((prep) => {
+            return document.querySelector(prep + parent);
+          })
+          .filter((pe) => {
+            return pe !== null;
+          })[0];
+      }
     }
   } else parent = document.querySelector("body");
 
@@ -130,13 +134,12 @@ const createDOMElem = ({
   /*
    * and at the end give the elem back for later usage
    */
-  return [elem, appendElem, append];
+  return elem;
 };
 
 /* object caller of the funcion */
 const DOMElem = {
-  Create: createDOMElem[0],
-  Append: createDOMElem,
+  Create: createDOMElem,
 };
 
 /******************/
