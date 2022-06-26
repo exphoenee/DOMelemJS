@@ -81,7 +81,7 @@ const createDOMElem = ({
   children &&
     makeThatArray(children).forEach((child) =>
       elem.appendChild(
-        child instanceof HTMLElement ? child : createDOMElem(child)[0]
+        child instanceof HTMLElement ? child : createDOMElem(child)
       )
     );
 
@@ -120,7 +120,7 @@ const createDOMElem = ({
           })
           .filter((pe) => {
             return pe !== null;
-          })[0];
+          });
       }
     }
   } else parent = document.querySelector("body");
