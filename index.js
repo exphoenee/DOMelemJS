@@ -1,4 +1,4 @@
-const createDOMElem = ({
+export const createDOMElem = ({
   tag,
   content,
   text,
@@ -139,7 +139,7 @@ const createDOMElem = ({
 };
 
 /* object caller of the funcion */
-const DOMElem = {
+export const DOMElem = {
   Create: createDOMElem,
 };
 
@@ -1001,7 +1001,7 @@ function makeCamelCase(s) {
     .join("");
 }
 
-const [
+export const [
   a,
   abbr,
   acronym,
