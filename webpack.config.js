@@ -3,10 +3,15 @@ const path = require("path");
 
 module.exports = {
   mode: "production",
+  target: "web",
   entry: { main: path.resolve(__dirname, "src/index.js") },
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "index.js",
+    library: "creatDomElem",
+    libraryTarget: "umd",
+    globalObject: "this",
+    umdNameDefined: true,
     //clean: true,
     assetModuleFilename: "[name][ext]",
   },
