@@ -1,13 +1,13 @@
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+//const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  mode: "development",
+  mode: "production",
   entry: { main: path.resolve(__dirname, "src/index.js") },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "[name][contenthash].js",
-    clean: true,
+    filename: "index.js",
+    //clean: true,
     assetModuleFilename: "[name][ext]",
   },
   module: {
@@ -27,10 +27,12 @@ module.exports = {
     historyApiFallback: true,
   },
   plugins: [
+    /*
     new HtmlWebpackPlugin({
       title: "Webpack App Boilerplate",
       filename: "index.html",
       template: "src/template/template.html",
     }),
+    */
   ],
 };
