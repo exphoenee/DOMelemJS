@@ -1,10 +1,11 @@
 {
   "name": "domelemjs",
-  "version": "1.1.19",
+  "version": "1.1.20",
   "description": "With the help of this package the rendering of HTML elements form JavaScript become a easy job.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack",
+    "dev": "webpack serve"
   },
   "repository": {
     "type": "git",
@@ -24,5 +25,15 @@
   "homepage": "https://github.com/exphoenee/DOMelemJS#readme",
   "directories": {
     "test": "test"
+  },
+  "dependencies": {
+    "webpack-cli": "^4.10.0"
+  },
+  "devDependencies": {
+    "css-loader": "^6.7.1",
+    "html-webpack-plugin": "^5.5.0",
+    "sass": "^1.53.0",
+    "sass-loader": "^13.0.2",
+    "style-loader": "^3.3.1"
   }
 }
