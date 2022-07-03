@@ -11,7 +11,7 @@ module.exports = {
     library: "creatDomElem",
     libraryTarget: "umd",
     globalObject: "this",
-    umdNameDefined: true,
+    umdNamedDefine: true,
     //clean: true,
     assetModuleFilename: "[name][ext]",
   },
