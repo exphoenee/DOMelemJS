@@ -244,5 +244,3 @@ export const [
   "video",
   "wbr",
 ];
-
-export default createDOMElem();
