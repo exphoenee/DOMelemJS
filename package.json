@@ -3,6 +3,7 @@
   "version": "1.1.20",
   "description": "With the help of this package the rendering of HTML elements form JavaScript become a easy job.",
   "main": "index.js",
+  "prepublishOnly": "webpack --mode=production",
   "scripts": {
     "build": "webpack",
     "dev": "webpack serve"
