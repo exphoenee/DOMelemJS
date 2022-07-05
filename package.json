@@ -2,7 +2,7 @@
   "name": "domelemjs",
   "version": "1.1.20",
   "description": "With the help of this package the rendering of HTML elements form JavaScript become a easy job.",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "prepublishOnly": "webpack --mode=production",
   "scripts": {
     "build": "webpack",
@@ -19,6 +19,9 @@
     "webapp"
   ],
   "author": "VIKTOR, Bozzay",
+  "files": [
+    "dist"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/exphoenee/DOMelemJS/issues"
@@ -28,6 +31,7 @@
     "test": "test"
   },
   "dependencies": {
+    "clean-webpack-plugin": "^4.0.0",
     "webpack-cli": "^4.10.0"
   },
   "devDependencies": {
