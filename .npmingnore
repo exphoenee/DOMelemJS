@@ -1,14 +1,17 @@
 # folders
+
 cypress
 src
 demo
 
 # files
-*.log
+
+_.log
 cypress.json
-*.code-workspace
+_.code-workspace
 
 # toolchain
+
 webpack.config.js
 tsconfig.json
 .eslintrc.js
