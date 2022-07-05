@@ -2,7 +2,7 @@ const path = require("path");
 //const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
-const config = {
+module.exports = {
   mode: "production",
   target: "web",
   entry: { main: path.resolve(__dirname, "src/index.js") },
@@ -45,13 +45,4 @@ const config = {
       cleanOnceBeforeBuildPatterns: [path.resolve(__dirname, "./dist")],
     }),
   ],
-};
-module.exports = (env, argv) => {
-  if (argv.mode === "development") {
-  } else if (argv.mode === "production") {
-  } else {
-    throw new Error("Specify env");
-  }
-
-  return config;
 };
