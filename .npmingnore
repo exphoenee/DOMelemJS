@@ -5,13 +5,11 @@ src
 demo
 
 # files
-
 _.log
 cypress.json
 _.code-workspace
 
 # toolchain
-
 webpack.config.js
 tsconfig.json
 .eslintrc.js
