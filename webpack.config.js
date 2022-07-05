@@ -2,14 +2,14 @@ const path = require("path");
 //const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
-module.exports = {
+const config = {
   mode: "production",
   target: "web",
   entry: { main: path.resolve(__dirname, "src/index.js") },
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "index.js",
-    library: "creatDomElem",
+    library: "domElemJS",
     libraryTarget: "umd",
     globalObject: "this",
     umdNamedDefine: true,
@@ -45,4 +45,13 @@ module.exports = {
       cleanOnceBeforeBuildPatterns: [path.resolve(__dirname, "./dist")],
     }),
   ],
+};
+module.exports = (env, argv) => {
+  if (argv.mode === "development") {
+  } else if (argv.mode === "production") {
+  } else {
+    throw new Error("Specify env");
+  }
+
+  return config;
 };
