@@ -1,6 +1,6 @@
 {
   "name": "domelemjs",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "With the help of this package the rendering of HTML elements form JavaScript become a easy job.",
   "main": "./dist/index.js",
   "prepublishOnly": "webpack --mode=production",
