@@ -24,6 +24,10 @@ module.exports = {
         test: /\.(jpg|jpeg|svg|gif|png|webp|bmp)$/i,
         type: "asset/resource",
       },
+      {
+        test: /\.ttf$/,
+        use: ["url-loader"],
+      },
     ],
   },
   optimization: {
