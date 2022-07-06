@@ -1,6 +1,7 @@
 const path = require("path");
 //const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
   mode: "production",
@@ -23,6 +24,17 @@ module.exports = {
         test: /\.(jpg|jpeg|svg|gif|png|webp|bmp)$/i,
         type: "asset/resource",
       },
+    ],
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          keep_classnames: true,
+          keep_fnames: true,
+        },
+      }),
     ],
   },
   devServer: {
