@@ -1,6 +1,7 @@
 {
   "name": "domelemjs",
   "version": "1.2.2",
+  "type": "module",
   "description": "With the help of this package the rendering of HTML elements form JavaScript become a easy job.",
   "main": "./dist/index.js",
   "prepublishOnly": "webpack --mode=production",
@@ -30,7 +31,12 @@
   "directories": {
     "test": "test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "makeCamelCase": "file:./src/Utils/makeCamelCase.mjs",
+    "makeThatArray": "file:./src/Utils/makeThatArray.mjs",
+    "noSpecChars": "file:./src/Utils/noSpecChars.mjs",
+    "domElemTypes": "file:./src/model/domElemTypes.mjs"
+  },
   "devDependencies": {
     "url-loader": "^4.1.1",
     "clean-webpack-plugin": "^4.0.0",
