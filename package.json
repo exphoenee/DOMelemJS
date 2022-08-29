@@ -1,6 +1,6 @@
 {
   "name": "domelemjs",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "type": "module",
   "description": "With the help of this package the rendering of HTML elements form JavaScript become a easy job.",
   "main": "./dist/index.js",
