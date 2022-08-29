@@ -12,8 +12,6 @@ myDOM.selectControlContainer = new DOMElem({
   attrs: { class: "első próbálkozás" },
 }).elem;
 
-console.log(myDOM.selectControlContainer);
-
 document.body.appendChild(myDOM.selectControlContainer);
 
 /* 2. Úgy is használhatom, hogy a szülőelemet már az Elem létrehozásakor megadom neki, és akkor befűzi oda. */
@@ -44,7 +42,7 @@ myDOM.selectControl = new DOMElem({
   style: { color: "red" },
   parent: myDOM.selectControlContainer,
   children: animalOption,
-});
+}).elem;
 
 /* 3. Úgy is haszálhatom, hogy egyből appendolom és azt változónak adom */
 
@@ -57,7 +55,7 @@ myDOM.selectControl = myDOM.selectControl.appendChild(
     attrs: { for: "selectControl" },
     parent: myDOM.selectControlContainer,
   }).elem
-).elem;
+);
 
 myDOM.selectControl = myDOM.selectControl.appendChild(
   new DOMElem({
