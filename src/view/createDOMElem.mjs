@@ -251,22 +251,17 @@ export const [
   "wbr",
 ];
 
-export function createDOMElem(
-  {
-    tag,
-    content,
-    text,
-    attrs,
-    style,
-    children,
-    parent,
-    handleEvent,
-    append,
-  } = {
-    tag: div,
-    append: true,
-  }
-) {
+export default function createDOMElem({
+  tag,
+  content,
+  text,
+  attrs,
+  style,
+  children,
+  parent,
+  handleEvent,
+  append = true,
+}) {
   /*
    * create the DOM element with the given tag
    */
@@ -394,15 +389,4 @@ export function createDOMElem(
    * and at the end give the elem back for later usage
    */
   return elem;
-}
-
-export default class DOMELem {
-  constructor(options) {
-    this.options = options;
-    this.elem = this.create();
-    return this;
-  }
-  create() {
-    return createDOMElem(this.options);
-  }
 }
