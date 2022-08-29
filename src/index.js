@@ -1,5 +1,5 @@
 "use strict";
-import DOMElem from "./view/createDOMElem.mjs";
+import DOMElem from "./view/DOMElem.mjs";
 
 /* használata */
 
@@ -10,9 +10,9 @@ let myDOM = {};
 myDOM.selectControlContainer = new DOMElem({
   tag: "div",
   attrs: { class: "első próbálkozás" },
-});
+}).elem;
 
-console.log(myDOM.elem);
+console.log(myDOM.selectControlContainer);
 
 document.body.appendChild(myDOM.selectControlContainer);
 
@@ -36,7 +36,7 @@ myDOM.selectControl = new DOMElem({
   text: "állatkák:",
   attrs: { for: "selectControl" },
   parent: myDOM.selectControlContainer,
-});
+}).elem;
 
 myDOM.selectControl = new DOMElem({
   tag: "select",
@@ -56,15 +56,16 @@ myDOM.selectControl = myDOM.selectControl.appendChild(
     text: "fák:",
     attrs: { for: "selectControl" },
     parent: myDOM.selectControlContainer,
-  })
-);
+  }).elem
+).elem;
+
 myDOM.selectControl = myDOM.selectControl.appendChild(
   new DOMElem({
     tag: "select",
     attrs: { id: "selectControl" },
     parent: myDOM.selectControlContainer,
     children: generateOption(plants),
-  })
+  }).elem
 );
 
 /* Példa egy komplexebb struktúra előállítására */
@@ -87,7 +88,7 @@ myDOM.dateFilterContainer = document.body.appendChild(
               class: "beginDate-lable",
             },
             text: "Kezdő dátum: ",
-          }),
+          }).elem,
           new DOMElem({
             tag: "input",
             attrs: {
@@ -100,9 +101,9 @@ myDOM.dateFilterContainer = document.body.appendChild(
               e.preventDefault();
               console.log(this.value);
             },
-          }),
+          }).elem,
         ],
-      }),
+      }).elem,
       new DOMElem({
         tag: "div",
         attrs: { class: "endDate-container", id: "endDate-container" },
@@ -113,7 +114,7 @@ myDOM.dateFilterContainer = document.body.appendChild(
               class: "endDate-lable",
             },
             text: "Befejező dátum: ",
-          }),
+          }).elem,
           new DOMElem({
             tag: "input",
             attrs: {
@@ -126,9 +127,9 @@ myDOM.dateFilterContainer = document.body.appendChild(
               e.preventDefault();
               console.log(this.value);
             },
-          }),
+          }).elem,
         ],
       }),
     ],
-  })
+  }).elem
 );
