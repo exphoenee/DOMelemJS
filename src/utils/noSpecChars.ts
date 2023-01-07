@@ -1,11 +1,11 @@
 "use strict";
 /* removing special chars form a string */
-export default function noSpecChars(text, lowercase = false) {
-  function replaceAll(string, search, replace) {
+export default function noSpecChars(text: string, lowercase: boolean = false) {
+  function replaceAll(string: string, search: string, replace: string) {
     return string.split(search).join(replace);
   }
 
-  let specialChars = {
+  let specialChars: { [key: string]: string } = {
     Ă: "A",
     Ắ: "A",
     Ặ: "A",
