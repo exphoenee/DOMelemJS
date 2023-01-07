@@ -1,13 +1,14 @@
 {
   "name": "domelemjs",
-  "version": "1.2.3",
-  "type": "module",
+  "version": "1.2.4",
   "description": "With the help of this package the rendering of HTML elements form JavaScript become a easy job.",
   "main": "./dist/index.js",
   "prepublishOnly": "webpack --mode=production",
   "scripts": {
-    "build": "webpack",
-    "dev": "webpack serve"
+    "publish": "webpack --mode production && npm publish",
+    "build": "webpack --mode production",
+    "dev": "webpack serve --mode development --open",
+    "start": "webpack serve --mode development --open"
   },
   "repository": {
     "type": "git",
@@ -32,13 +33,12 @@
     "test": "test"
   },
   "dependencies": {
+    "domElemTypes": "file:./src/model/domElemTypes.mjs",
     "makeCamelCase": "file:./src/Utils/makeCamelCase.mjs",
     "makeThatArray": "file:./src/Utils/makeThatArray.mjs",
-    "noSpecChars": "file:./src/Utils/noSpecChars.mjs",
-    "domElemTypes": "file:./src/model/domElemTypes.mjs"
+    "noSpecChars": "file:./src/Utils/noSpecChars.mjs"
   },
   "devDependencies": {
-    "url-loader": "^4.1.1",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.7.1",
     "html-webpack-plugin": "^5.5.0",
@@ -46,6 +46,9 @@
     "sass-loader": "^13.0.2",
     "style-loader": "^3.3.1",
     "terser-webpack-plugin": "^5.3.3",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.4",
+    "url-loader": "^4.1.1",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.9.3"
   }
