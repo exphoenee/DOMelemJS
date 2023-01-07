@@ -4,7 +4,12 @@ import makeCamelCase from "../utils/makeCamelCase";
 import makeThatArray from "../utils/makeThatArray";
 import noSpecChars from "../utils/noSpecChars";
 
+/* constants */
+import {domTypes} from "../model/domElemTypes";
+
+/* types */
 import optionsType from "../types/domelem.type";
+import { attrType, attrsType, datasetType } from "../types/domelem.type";
 
 export default function createDOMElem({
   tag,
@@ -20,16 +25,19 @@ export default function createDOMElem({
   /*
    * create the DOM element with the given tag
    */
-  let elem = document.createElement(tag);
+
+  const domElemType = domTypes[tag as keyof typeof domTypes];
+
+  let elem = document.createElement(tag) as typeof domElemType | HTMLElement;
 
   /*
    * add the content
    */
-  content && (elem.innerHTML = content);
+  content && ("innerHTML" in elem) && (elem.innerHTML = content);
   /*
    * add the text
    */
-  text && (elem.textContent = text);
+  text && ("textContent" in elem) && (elem.textContent = text);
 
   /*
    *  add all the attributes they want
@@ -38,17 +46,19 @@ export default function createDOMElem({
   const noSpecChAttrs = ["class", "id"];
 
   attrs &&
-    makeThatArray(attrs).forEach((atts) =>
+    makeThatArray(attrs).forEach((atts: attrType) =>
       Object.keys(atts).forEach((attr) => {
         if (atts[attr]) {
           if (attr === "checked") {
-            elem.checked = atts[attr];
+            if ("checked" in elem) elem.checked = atts[attr];
           } else if (attr === "dataset") {
             makeThatArray(atts[attr]).map((data) =>
-              Object.keys(data).forEach((d) => (elem.dataset[d] = data[d]))
+              Object.keys(data).forEach((d) => {
+                if ("dataset" in elem) (elem.dataset[d] = String(data[d]))
+              })
             );
           } else {
-            elem.setAttribute(
+            if ("setAttribute" in elem) elem.setAttribute(
               attr,
               makeThatArray(atts[attr])
                 .map((a) => (noSpecChAttrs.includes(attr) ? noSpecChars(a) : a))
