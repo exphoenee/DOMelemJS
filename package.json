@@ -33,10 +33,10 @@
     "test": "test"
   },
   "dependencies": {
-    "domElemTypes": "file:./src/model/domElemTypes.mjs",
-    "makeCamelCase": "file:./src/Utils/makeCamelCase.mjs",
-    "makeThatArray": "file:./src/Utils/makeThatArray.mjs",
-    "noSpecChars": "file:./src/Utils/noSpecChars.mjs"
+    "domElemTypes": "file:./src/model/domElemTypes.ts",
+    "makeCamelCase": "file:./src/Utils/makeCamelCase.ts",
+    "makeThatArray": "file:./src/Utils/makeThatArray.ts",
+    "noSpecChars": "file:./src/Utils/noSpecChars.ts"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^4.0.0",
