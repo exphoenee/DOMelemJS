@@ -8,7 +8,7 @@ const DIST_DIR = path.resolve(__dirname, "./dist");
 
 module.exports = {
   mode: "production",
-  target: "web",
+  target: "node",
   devtool: "inline-source-map",
   entry: { main: SRC_DIR + "/index.js" },
   output: {
@@ -33,7 +33,7 @@ module.exports = {
         use: ["url-loader"],
       },
       {
-        test: /\.tsx?$/,
+        test: /\.ts?$/,
         use: "ts-loader",
         exclude: /node_modules/,
       },
@@ -62,9 +62,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Webpack App Boilerplate",
-      filename: "index.html",
-      template: "src/template/template.html",
+      title: "DOMElemJS",
+      template: "./src/index.html",
     }),
     new CleanWebpackPlugin({
       cleanStaleWebpackAssets: false,
