@@ -1,8 +1,10 @@
 "use strict";
 
-import makeCamelCase from "../utils/makeCamelCase.mjs";
-import makeThatArray from "../utils/makeThatArray.mjs";
-import noSpecChars from "../utils/noSpecChars.mjs";
+import makeCamelCase from "../utils/makeCamelCase";
+import makeThatArray from "../utils/makeThatArray";
+import noSpecChars from "../utils/noSpecChars";
+
+import optionsType from "../types/domelem.type";
 
 export default function createDOMElem({
   tag,
@@ -14,7 +16,7 @@ export default function createDOMElem({
   parent,
   handleEvent,
   append = true,
-}) {
+}: optionsType) {
   /*
    * create the DOM element with the given tag
    */
