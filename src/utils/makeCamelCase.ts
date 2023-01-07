@@ -1,6 +1,6 @@
 "use strict";
 /* removing the "-" symbol form the string adn makind the afterward word to uppercase, that is named as camelCase */
-export default function makeCamelCase(s) {
+export default function makeCamelCase(s: string): string {
   return s
     .split("-")
     .map((ss, i) => {
