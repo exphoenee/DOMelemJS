@@ -13,7 +13,7 @@ module.exports = {
   entry: { main: SRC_DIR + "/index.js" },
   output: {
     path: DIST_DIR,
-    filename: "index.ts",
+    filename: "index.js",
     library: "domElemJS",
     libraryTarget: "umd",
     globalObject: "this",
