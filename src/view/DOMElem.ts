@@ -5,7 +5,7 @@ import optionsType from "../types/domelem.type";
 
 export default class DOMELem {
   private options: optionsType;
-  public elem: HTMLElement;
+  public elem: any;
 
   constructor(options: optionsType) {
     this.options = options;
