@@ -5,6 +5,7 @@
   "main": "./dist/index.js",
   "prepublishOnly": "webpack --mode=production",
   "scripts": {
+    "publish": "npm run build && npm publish",
     "build": "webpack",
     "dev": "webpack serve"
   },
