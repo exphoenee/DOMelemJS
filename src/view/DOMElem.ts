@@ -1,9 +1,13 @@
 "use strict";
 
-import createDOMElem from "./createDOMElem.mjs";
+import createDOMElem from "./createDOMElem";
+import optionsType from "../types/domelem.type";
 
 export default class DOMELem {
-  constructor(options) {
+  private options: optionsType;
+  public elem: HTMLElement;
+
+  constructor(options: optionsType) {
     this.options = options;
     this.elem = this.create();
     return this;
