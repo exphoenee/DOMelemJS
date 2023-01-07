@@ -1,15 +1,19 @@
 const path = require("path");
-//const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 
+const SRC_DIR = path.resolve(__dirname, "./src");
+const DIST_DIR = path.resolve(__dirname, "./dist");
+
 module.exports = {
   mode: "production",
-  target: "package",
-  entry: { main: path.resolve(__dirname, "src/index.js") },
+  target: "web",
+  devtool: "inline-source-map",
+  entry: { main: SRC_DIR + "/index.js" },
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "index.js",
+    path: DIST_DIR,
+    filename: "index.ts",
     library: "domElemJS",
     libraryTarget: "umd",
     globalObject: "this",
@@ -28,7 +32,15 @@ module.exports = {
         test: /\.ttf$/,
         use: ["url-loader"],
       },
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
     ],
+  },
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
   },
   optimization: {
     minimize: true,
@@ -42,23 +54,21 @@ module.exports = {
     ],
   },
   devServer: {
-    static: { directory: path.resolve(__dirname, "dist") },
+    static: { directory: DIST_DIR },
     port: 3000,
     open: true,
     compress: true,
     historyApiFallback: true,
   },
   plugins: [
-    /*
     new HtmlWebpackPlugin({
       title: "Webpack App Boilerplate",
       filename: "index.html",
       template: "src/template/template.html",
     }),
-    */
     new CleanWebpackPlugin({
       cleanStaleWebpackAssets: false,
-      cleanOnceBeforeBuildPatterns: [path.resolve(__dirname, "./dist")],
+      cleanOnceBeforeBuildPatterns: [DIST_DIR],
     }),
   ],
 };
