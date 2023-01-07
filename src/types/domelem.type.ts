@@ -1,8 +1,13 @@
+export type attrType = { [key: string]: string | number };
+export type attrsType = attrType | attrType[];
+
+export type datasetType = { [key: string]: string };
+
 type optionsType = {
   tag: string; //
   content?: string; //
   text?: string; //
-  attrs?: object; //
+  attrs?: attrsType; //
   style?: any; //
   children?: any; //
   parent?: any; //
