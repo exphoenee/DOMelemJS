@@ -8,8 +8,11 @@ import noSpecChars from "../utils/noSpecChars";
 import {domTypes} from "../model/domElemTypes";
 
 /* types */
-import optionsType from "../types/domelem.type";
-import { attrType, attrsType, datasetType } from "../types/domelem.type";
+import optionsType, {
+  attrType,
+  attrsType,
+  datasetType,
+} from "../types/domelem.type";
 
 export default function createDOMElem({
   tag,
@@ -33,11 +36,11 @@ export default function createDOMElem({
   /*
    * add the content
    */
-  content && ("innerHTML" in elem) && (elem.innerHTML = content);
+  content && "innerHTML" in elem && (elem.innerHTML = content);
   /*
    * add the text
    */
-  text && ("textContent" in elem) && (elem.textContent = text);
+  text && "textContent" in elem && (elem.textContent = text);
 
   /*
    *  add all the attributes they want
@@ -54,16 +57,21 @@ export default function createDOMElem({
           } else if (attr === "dataset") {
             makeThatArray(atts[attr]).map((data) =>
               Object.keys(data).forEach((d) => {
-                if ("dataset" in elem) (elem.dataset[d] = String(data[d]))
+                //TODO fix this type issue
+                // @ts-ignore
+                if ("dataset" in elem) elem.dataset[d] = String(data[d]);
               })
             );
           } else {
-            if ("setAttribute" in elem) elem.setAttribute(
-              attr,
-              makeThatArray(atts[attr])
-                .map((a) => (noSpecChAttrs.includes(attr) ? noSpecChars(a) : a))
-                .join(" ")
-            );
+            if ("setAttribute" in elem)
+              elem.setAttribute(
+                attr,
+                makeThatArray(atts[attr])
+                  .map((a: string) =>
+                    noSpecChAttrs.includes(attr) ? noSpecChars(a) : a
+                  )
+                  .join(" ")
+              );
           }
         }
       })
@@ -93,15 +101,25 @@ export default function createDOMElem({
       .split(";")
       .forEach((styleTxts) => {
         let [styleTxt, val] = styleTxts.split(":").map((c) => c.trim());
-        elem.style[makeCamelCase(styleTxt)] = val;
+        // TODO: fix this type issue
+        // @ts-ignore
+        if ("style" in elem) elem.style[makeCamelCase(styleTxt)] = val;
       });
 
   children &&
-    makeThatArray(children).forEach((child) =>
-      elem.appendChild(
-        child instanceof HTMLElement ? child : createDOMElem(child)
-      )
-    );
+    makeThatArray(children).forEach((child) => {
+      if ("appendChild" in elem) {
+        if (child instanceof HTMLElement) {
+          elem.appendChild(child);
+        } else if (typeof child === "object" && "tag" in child) {
+          createDOMElem(child);
+        } else {
+          throw new Error(
+            "The child should be an HTMLElement or an object with the options for the createDOMElem function"
+          );
+        }
+      }
+    });
 
   /*
    * Add the eventListener or more eventListeners it hey comes in array
@@ -115,6 +133,7 @@ export default function createDOMElem({
         newEvent &&
         newEvent.event &&
         newEvent.cb &&
+        "addEventListener" in elem &&
         elem.addEventListener(newEvent.event, newEvent.cb)
     );
 
@@ -145,6 +164,7 @@ export default function createDOMElem({
   } else parent = document.querySelector("body");
 
   const appendElem = () => {
+    console.log("append");
     parent.appendChild(elem);
   };
 
