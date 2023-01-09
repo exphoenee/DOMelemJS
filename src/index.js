@@ -346,8 +346,8 @@ export default function createDOMElem({
     makeThatArray(handleEvent).forEach(
       (newEvent) =>
         newEvent &&
-        newEvent.event &&
-        newEvent.cb &&
+        newEvent?.event &&
+        newEvent?.cb &&
         elem.addEventListener(newEvent.event, newEvent.cb)
     );
 
