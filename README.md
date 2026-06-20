@@ -1,182 +1,249 @@
 # DOMelemJS
 
-This lightweight, zero dependecy tool is allow you to render HTML elements dynamically form JavaScript!
+A lightweight, zero-dependency TypeScript library for dynamically creating HTML elements from JavaScript.
 
-Installation:
+[![npm version](https://img.shields.io/npm/v/domelemjs)](https://www.npmjs.com/package/domelemjs)
+[![license](https://img.shields.io/npm/l/domelemjs)](https://github.com/exphoenee/DOMelemJS/blob/main/LICENSE)
 
-```
-npm i domelemjs
-```
+## Installation
 
-Usage:
+### npm
 
-```
-const DOMELemjs = require('domelemjs')
-
-domelemjs.createDOMElem({tag: "div", attrs: {class: "app"}}) // retunrs and create a <div class="app">...</div
-domelemjs.DOMElem.create({tag: "div", attrs: {class: "app"}}) // retunrs and create a <div class="app">...</div
+```bash
+npm install domelemjs
 ```
 
-There is two approach and two to use it:
+### CDN (unpkg)
 
-1. is the Object approach:
-   This is a tiny object with name DOMElem!
+No build tools needed — include directly in your HTML:
 
-Whit this approach you can create HTML element as follows:
+```html
+<script src="https://unpkg.com/domelemjs/dist/index.browser.js"></script>
+<script>
+  const { createDOMElem, DOMElem } = DOMElemJS;
 
-```
-Elem.Create({
-      tag: "div",
-      attrs: { class: "app" },
-    });
-```
-
-that gives you a div with a class: app:
-
-```
-<div class="app"></div>
+  const app = createDOMElem({
+    tag: "div",
+    attrs: { id: "app" },
+    text: "Hello from CDN!",
+  });
+</script>
 ```
 
-2 the second way is through a function that named: createDOMElem()
+Pin a specific version:
 
-With this approach you should use as follows:
-
+```html
+<script src="https://unpkg.com/domelemjs@2.0.1/dist/index.browser.js"></script>
 ```
+
+## Quick Start
+
+```ts
+import { createDOMElem } from "domelemjs";
+
 const app = createDOMElem({
   tag: "div",
   attrs: { id: "app" },
 });
 ```
 
-that gives you a div with a id: app:
+## API
 
-```
-<div id="app"></div>
+### `createDOMElem(options)`
+
+The core function. Creates a DOM element and returns the `HTMLElement`.
+
+```ts
+const el = createDOMElem({
+  tag: "h1",
+  text: "Hello World",
+  attrs: { class: "title" },
+  style: { color: "blue" },
+  parent: "#app",
+});
 ```
 
-With this renderer you will be able to add eventListeners and styles in the moment as the DOM is created!
-e.g.:
+### `new DOMElem(options)`
 
+Class-based wrapper. The created element is available on `.elem`.
+
+```ts
+import { DOMElem } from "domelemjs";
+
+const div = new DOMElem({
+  tag: "div",
+  text: "Hello",
+  attrs: { class: "container" },
+});
+
+document.body.appendChild(div.elem);
 ```
+
+## Options
+
+| Option | Type | Description |
+|---|---|---|
+| `tag` | `string` | **Required.** HTML tag name (e.g. `"div"`, `"span"`, `"input"`). |
+| `text` | `string` | Plain text content (`textContent`). |
+| `content` | `string` | Raw HTML content (`innerHTML`). |
+| `attrs` | `object \| object[]` | HTML attributes to set. Supports `class`, `id`, `data-*`, `checked`, etc. |
+| `style` | `string \| object \| array` | Inline CSS styles (see [Styling](#styling)). |
+| `children` | `array` | Child elements — either options objects or `HTMLElement`s. |
+| `parent` | `HTMLElement \| string` | Parent to append to. Accepts an element or a CSS selector (`"#app"`, `".container"`, `"app"`). Defaults to `document.body`. |
+| `handleEvent` | `object \| object[]` | Event listeners to attach (see [Events](#events)). |
+| `append` | `boolean` | Whether to append the element to its parent. Defaults to `true`. |
+
+## Styling
+
+Styles can be provided in multiple formats:
+
+```ts
+// CSS string
 createDOMElem({
-  tag: "h2",
-  text: "It's amazing",
-  parent: app,
-  style: { color: "red", "background-color": "green" },
-  attrs: { id: "title" },
+  tag: "div",
+  style: "color: red; background-color: blue",
+});
+
+// Object
+createDOMElem({
+  tag: "div",
+  style: { color: "red", backgroundColor: "blue" },
+});
+
+// Array (mixed)
+createDOMElem({
+  tag: "div",
+  style: ["color: red", { backgroundColor: "blue" }],
+});
+```
+
+## Events
+
+Attach event listeners via `handleEvent`:
+
+```ts
+createDOMElem({
+  tag: "button",
+  text: "Click me",
   handleEvent: {
     event: "click",
-    cb: (e) => console.log(e.target.id),
+    cb: (e) => console.log("clicked!"),
   },
 });
 ```
 
-Handle event is an object or an array of object, that should be conain:
+Multiple events can be passed as an array:
 
-- event, what will fire the event?
-- and a cb, that is the callback function
-- you can ad as many events as you want easily in an array!
-
-You can add the children of the element same time as the element is created:
-
+```ts
+createDOMElem({
+  tag: "input",
+  handleEvent: [
+    { event: "focus", cb: () => console.log("focused") },
+    { event: "blur", cb: () => console.log("blurred") },
+  ],
+});
 ```
-const select = createDOMElem({
+
+## Attributes
+
+Attributes can be a single object or an array:
+
+```ts
+createDOMElem({
+  tag: "input",
+  attrs: [
+    { id: "myInput", type: "text" },
+    { class: "form-control" },
+  ],
+});
+```
+
+Special attribute handling:
+- **`checked`** — sets the checked property on inputs
+- **`dataset`** — merges `data-*` attributes (e.g. `{ dataset: { id: "foo" } }` becomes `data-id="foo"`)
+- **`class` / `id`** — special characters are automatically stripped
+
+## Children
+
+Children can be nested options objects or existing `HTMLElement`s:
+
+```ts
+createDOMElem({
   tag: "select",
-  parent: app,
   attrs: { id: "selector" },
   children: [
-    {
-      tag: "option",
-      text: "foo",
-      attr: { value: "foo" },
-    },
-    {
-      tag: "option",
-      text: "bar",
-      attr: { value: "bar" },
-    },
+    { tag: "option", text: "Foo", attrs: { value: "foo" } },
+    { tag: "option", text: "Bar", attrs: { value: "bar" } },
   ],
-  handleEvent: {
-    event: "change",
-    cb: (e) => console.log(e.target.value),
-  },
 });
 ```
 
-Adding stye is also possible as:
+## Complex Example
 
-- a string, with a bunch of style properties, it can be:
-  - CCS style (e.g. background-color) or
-  - JS/camelCase (e.g. backgroundColor) style formatted version also.
-- or an object formatted (e.g. style: { backgroundColor: red })
-- or an array with multiple style strings with CSS or JS vesrion, or mixed
+```ts
+import { createDOMElem } from "domelemjs";
 
-And a complex structure semms like this here:
-
-```
-dateFilterContainer = document.body.appendChild(
-  Elem.Create({
-    tag: "div",
-    attrs: { class: "dateFilter-Container", id: "dateFilter-Container" },
-    children: [
-      Elem.Create({
-        tag: "div",
-        attrs: {
-          class: "beginDate-container",
-          id: "beginDate-container",
+const container = createDOMElem({
+  tag: "div",
+  attrs: { class: "date-filter" },
+  children: [
+    {
+      tag: "div",
+      attrs: { class: "date-group" },
+      children: [
+        {
+          tag: "label",
+          text: "Start date:",
+          attrs: { for: "startDate" },
         },
-        children: [
-          Elem.Create({
-            tag: "label",
-            attrs: {
-              class: "beginDate-lable",
-            },
-            content: "Kezdő dátum: ",
-          }),
-          Elem.Create({
-            tag: "input",
-            attrs: {
-              type: "date",
-              class: "beginDate",
-              id: "beginDate",
-            },
-            eventStarter: "change",
-            eventFunction: function (e) {
-              e.preventDefault();
-              console.log(this.value);
-            },
-          }),
-        ],
-      }),
-      Elem.Create({
-        tag: "div",
-        attrs: { class: "endDate-container", id: "endDate-container" },
-        children: [
-          Elem.Create({
-            tag: "label",
-            attrs: {
-              class: "endDate-lable",
-            },
-            content: "Befejező dátum: ",
-          }),
-          Elem.Create({
-            tag: "input",
-            attrs: {
-              type: "date",
-              class: "endDate",
-              id: "endDate",
-            },
-            eventStarter: "change",
-            eventFunction: function (e) {
-              e.preventDefault();
-              console.log(this.value);
-            },
-          }),
-        ],
-      }),
-    ],
-  })
-);
+        {
+          tag: "input",
+          attrs: { type: "date", id: "startDate" },
+          handleEvent: {
+            event: "change",
+            cb: (e) => console.log("Start:", (e.target as HTMLInputElement).value),
+          },
+        },
+      ],
+    },
+    {
+      tag: "div",
+      attrs: { class: "date-group" },
+      children: [
+        {
+          tag: "label",
+          text: "End date:",
+          attrs: { for: "endDate" },
+        },
+        {
+          tag: "input",
+          attrs: { type: "date", id: "endDate" },
+          handleEvent: {
+            event: "change",
+            cb: (e) => console.log("End:", (e.target as HTMLInputElement).value),
+          },
+        },
+      ],
+    },
+  ],
+});
 ```
 
-Under MIT license.
+## TypeScript
+
+DOMelemJS is written in TypeScript and ships with full type definitions.
+
+```ts
+import { createDOMElem, type CreateDOMElemOptions } from "domelemjs";
+
+const options: CreateDOMElemOptions = {
+  tag: "div",
+  text: "Typed!",
+};
+
+const el = createDOMElem(options);
+```
+
+## License
+
+MIT

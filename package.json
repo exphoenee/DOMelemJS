@@ -1,13 +1,32 @@
 {
   "name": "domelemjs",
-  "version": "1.2.3",
+  "version": "2.0.1",
   "type": "module",
-  "description": "With the help of this package the rendering of HTML elements form JavaScript become a easy job.",
+  "description": "A lightweight, zero-dependency TypeScript library for dynamically creating HTML elements from JavaScript.",
   "main": "./dist/index.js",
-  "prepublishOnly": "webpack --mode=production",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
-    "build": "webpack",
-    "dev": "webpack serve"
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "release": "node scripts/release.js patch",
+    "release:minor": "node scripts/release.js minor",
+    "release:major": "node scripts/release.js major",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -17,36 +36,22 @@
     "rendering",
     "DOM",
     "dynamic",
-    "webapp"
+    "webapp",
+    "typescript"
   ],
   "author": "VIKTOR, Bozzay",
-  "files": [
-    "dist"
-  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/exphoenee/DOMelemJS/issues"
   },
   "homepage": "https://github.com/exphoenee/DOMelemJS#readme",
-  "directories": {
-    "test": "test"
-  },
-  "dependencies": {
-    "makeCamelCase": "file:./src/Utils/makeCamelCase.mjs",
-    "makeThatArray": "file:./src/Utils/makeThatArray.mjs",
-    "noSpecChars": "file:./src/Utils/noSpecChars.mjs",
-    "domElemTypes": "file:./src/model/domElemTypes.mjs"
-  },
   "devDependencies": {
-    "url-loader": "^4.1.1",
-    "clean-webpack-plugin": "^4.0.0",
-    "css-loader": "^6.7.1",
-    "html-webpack-plugin": "^5.5.0",
-    "sass": "^1.53.0",
-    "sass-loader": "^13.0.2",
-    "style-loader": "^3.3.1",
-    "terser-webpack-plugin": "^5.3.3",
-    "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "^4.9.3"
+    "@types/jest": "^30.0.0",
+    "husky": "^9.1.7",
+    "jest": "^30.4.2",
+    "jest-environment-jsdom": "^30.4.1",
+    "ts-jest": "^29.4.11",
+    "tsup": "^8.0.0",
+    "typescript": "^5.3.0"
   }
 }

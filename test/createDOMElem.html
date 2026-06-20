@@ -2,75 +2,65 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>DOMelemJS Test</title>
   </head>
   <body>
-    <script src="../dist/index.js"></script>
+    <script src="../dist/index.browser.js"></script>
     <script>
+      const { createDOMElem, DOMElem } = DOMElemJS;
+
       const app = createDOMElem({
         tag: "div",
         attrs: { id: "app" },
       });
 
-      /* styling is easy */
       createDOMElem({
-        tag: h1,
+        tag: "h1",
         text: "Hello World!",
         parent: app,
         style: "color: red; background-color: green",
         attrs: {
           id: "title1",
-          class: "áéőúóüűöí/*-",
+          class: "试一下",
           dataset: { text: "redText" },
         },
       });
+
       createDOMElem({
-        tag: h2,
+        tag: "h2",
         text: "It's amazing",
         parent: app,
         style: { color: "red", backgroundColor: "pink" },
         attrs: [
-          {
-            id: "title2",
-          },
-          {
-            dataset: [{ text: "redText" }, { bg: "greenBG" }],
-          },
+          { id: "title2" },
+          { dataset: [{ text: "redText" }, { bg: "greenBG" }] },
         ],
       });
+
       createDOMElem({
-        tag: h3,
+        tag: "h3",
         text: "I can write style as I want to",
         parent: app,
         style: ["color: red", "background-color: blue"],
         attrs: { id: "title3" },
       });
+
       createDOMElem({
-        tag: h4,
+        tag: "h4",
         text: "Awesome",
         parent: app,
         style: [{ color: "red" }, { backgroundColor: "green" }],
         attrs: { id: "title4" },
       });
 
-      /* creating a select with 2 options and eventHandler */
-      const selector = createDOMElem({
-        tag: select,
+      createDOMElem({
+        tag: "select",
         parent: app,
         attrs: { id: "selector" },
         children: [
-          {
-            tag: option,
-            text: "foo",
-            attrs: { value: "foo" },
-          },
-          {
-            tag: option,
-            text: "bar",
-            attrs: { value: "bar" },
-          },
+          { tag: "option", text: "foo", attrs: { value: "foo" } },
+          { tag: "option", text: "bar", attrs: { value: "bar" } },
         ],
         handleEvent: {
           event: "change",
@@ -78,16 +68,16 @@
         },
       });
 
-      DOMElem.Create({
-        tag: div,
+      new DOMElem({
+        tag: "div",
         parent: app,
         children: [
-          DOMElem.Create({
-            tag: label,
-            content: "Write Something",
+          new DOMElem({
+            tag: "label",
+            text: "Write Something",
             attrs: { for: "inputText" },
           }),
-          DOMElem.Create({ tag: "input", attrs: { id: "inputText" } }),
+          new DOMElem({ tag: "input", attrs: { id: "inputText" } }),
         ],
       });
     </script>

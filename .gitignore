@@ -1,5 +1,7 @@
-
-node_modules/*
-.vscode/settings.json
-.vscode/numbered-bookmarks.json
-.vscode/settings.json
+node_modules/
+dist/
+*.tsbuildinfo
+.vscode/
+.env
+.env.*
+.husky/_/
