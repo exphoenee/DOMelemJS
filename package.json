@@ -1,6 +1,6 @@
 {
   "name": "domelemjs",
-  "version": "2.0.1",
+  "version": "2.0.0",
   "type": "module",
   "description": "A lightweight, zero-dependency TypeScript library for dynamically creating HTML elements from JavaScript.",
   "main": "./dist/index.js",
@@ -22,11 +22,7 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist",
-    "release": "node scripts/release.js patch",
-    "release:minor": "node scripts/release.js minor",
-    "release:major": "node scripts/release.js major",
-    "prepare": "husky"
+    "clean": "rm -rf dist"
   },
   "repository": {
     "type": "git",
@@ -46,11 +42,6 @@
   },
   "homepage": "https://github.com/exphoenee/DOMelemJS#readme",
   "devDependencies": {
-    "@types/jest": "^30.0.0",
-    "husky": "^9.1.7",
-    "jest": "^30.4.2",
-    "jest-environment-jsdom": "^30.4.1",
-    "ts-jest": "^29.4.11",
     "tsup": "^8.0.0",
     "typescript": "^5.3.0"
   }
