@@ -1,5 +1,7 @@
-/** HTML tag name as a string. */
-export type HtmlTag = string;
+import type { HtmlTagConst } from "./htmlTags";
+
+/** HTML tag name — a string union of valid tags, or any string for flexibility. */
+export type HtmlTag = HtmlTagConst | string;
 
 /** A single CSS style value — either a string or a numeric pixel value. */
 export type StyleValue = string | number;
@@ -74,6 +76,8 @@ export interface CreateDOMElemOptions {
   parent?: ParentInput;
   handleEvent?: EventHandler | EventHandler[];
   append?: boolean;
+  /** Whether to strip diacritics from `class` and `id` attributes. Defaults to `true`. */
+  stripDiacritics?: boolean;
 }
 
 /** Options type for the `DOMElem` class — identical to `CreateDOMElemOptions`. */

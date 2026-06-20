@@ -22,6 +22,7 @@
 
 export { default as DOMElem } from "./DOMElem";
 export { default as createDOMElem } from "./createDOMElem";
+export { HTML_TAGS } from "./htmlTags";
 export type {
   CreateDOMElemOptions,
   DOMElemOptions,
@@ -31,3 +32,4 @@ export type {
   ParentInput,
   HtmlTag,
 } from "./types";
+export type { HtmlTagConst } from "./htmlTags";

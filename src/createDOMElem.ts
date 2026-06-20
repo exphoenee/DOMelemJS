@@ -12,17 +12,31 @@ const NO_SPEC_CHARS_ATTRS = ["class", "id"];
  *
  * @param parent - An HTMLElement or a CSS selector string.
  * @returns The resolved HTMLElement.
+ * @throws Will console.warn if the selector does not match any element.
  */
 function resolveParent(parent: HTMLElement | string): HTMLElement {
   if (parent instanceof HTMLElement) return parent;
+
+  let el: Element | null = null;
+
   if (parent.charAt(0) === "#" || parent.charAt(0) === ".") {
-    return document.querySelector(parent) as HTMLElement;
+    el = document.querySelector(parent);
+  } else {
+    el =
+      document.querySelector(`#${parent}`) ||
+      document.querySelector(`.${parent}`) ||
+      document.querySelector(parent);
   }
-  return (
-    document.querySelector(`#${parent}`) ||
-    document.querySelector(`.${parent}`) ||
-    document.querySelector(parent)
-  ) as HTMLElement;
+
+  if (!el) {
+    console.warn(
+      `[DOMElemJS] Parent element not found for selector: "${parent}". ` +
+        `Falling back to document.body.`
+    );
+    return document.body;
+  }
+
+  return el as HTMLElement;
 }
 
 /**
@@ -32,24 +46,35 @@ function resolveParent(parent: HTMLElement | string): HTMLElement {
  * - `"checked"` — sets the checked property on the element.
  * - `"dataset"` — merges data-* attributes via `elem.dataset`.
  * - Other attributes — joined with spaces, with special characters stripped
- *   for `"class"` and `"id"`.
+ *   for `"class"` and `"id"` when `stripDiacritics` is enabled.
  *
  * @param elem - The target element.
  * @param attrs - Attributes to apply.
+ * @param stripDiacritics - Whether to strip diacritics from class/id.
  */
-function applyAttrs(elem: HTMLElement, attrs: AttrsInput): void {
+function applyAttrs(
+  elem: HTMLElement,
+  attrs: AttrsInput,
+  stripDiacritics: boolean
+): void {
   for (const attrObj of toArray(attrs)) {
     for (const [key, value] of Object.entries(attrObj)) {
       if (value == null) continue;
 
       if (key === "checked") {
         (elem as HTMLInputElement).checked = !!value;
-      } else if (key === "dataset" && typeof value === "object" && !Array.isArray(value)) {
+      } else if (
+        key === "dataset" &&
+        typeof value === "object" &&
+        !Array.isArray(value)
+      ) {
         Object.assign(elem.dataset, value);
       } else {
         const rawValues = Array.isArray(value) ? value : [value];
         const values = rawValues.map((v) =>
-          NO_SPEC_CHARS_ATTRS.includes(key) ? noSpecChars(String(v)) : String(v)
+          stripDiacritics && NO_SPEC_CHARS_ATTRS.includes(key)
+            ? noSpecChars(String(v))
+            : String(v)
         );
         elem.setAttribute(key, values.join(" "));
       }
@@ -170,13 +195,25 @@ export default function createDOMElem(options: CreateDOMElemOptions): HTMLElemen
     parent,
     handleEvent,
     append = true,
+    stripDiacritics = true,
   } = options;
+
+  if (content && text) {
+    console.warn(
+      `[DOMElemJS] Both "content" and "text" provided for <${tag}>. ` +
+        `"text" takes precedence — "content" will be ignored.`
+    );
+  }
 
   const elem = document.createElement(tag);
 
-  if (content) elem.innerHTML = content;
-  if (text) elem.textContent = text;
-  if (attrs) applyAttrs(elem, attrs);
+  if (text) {
+    elem.textContent = text;
+  } else if (content) {
+    elem.innerHTML = content;
+  }
+
+  if (attrs) applyAttrs(elem, attrs, stripDiacritics);
   if (style) applyStyle(elem, style);
   if (children) applyChildren(elem, children);
   if (handleEvent) applyEvents(elem, handleEvent);

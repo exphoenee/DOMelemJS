@@ -5,6 +5,8 @@ A lightweight, zero-dependency TypeScript library for dynamically creating HTML 
 [![npm version](https://img.shields.io/npm/v/domelemjs)](https://www.npmjs.com/package/domelemjs)
 [![license](https://img.shields.io/npm/l/domelemjs)](https://github.com/exphoenee/DOMelemJS/blob/main/LICENSE)
 
+[Magyar README](README-hu.md) | [English README](README.md)
+
 ## Installation
 
 ### npm
@@ -33,7 +35,7 @@ No build tools needed — include directly in your HTML:
 Pin a specific version:
 
 ```html
-<script src="https://unpkg.com/domelemjs@2.0.1/dist/index.browser.js"></script>
+<script src="https://unpkg.com/domelemjs@2.0.0/dist/index.browser.js"></script>
 ```
 
 ## Quick Start
@@ -92,6 +94,7 @@ document.body.appendChild(div.elem);
 | `parent` | `HTMLElement \| string` | Parent to append to. Accepts an element or a CSS selector (`"#app"`, `".container"`, `"app"`). Defaults to `document.body`. |
 | `handleEvent` | `object \| object[]` | Event listeners to attach (see [Events](#events)). |
 | `append` | `boolean` | Whether to append the element to its parent. Defaults to `true`. |
+| `stripDiacritics` | `boolean` | Whether to strip diacritics from `class` and `id` attributes. Defaults to `true`. Set to `false` to preserve Unicode characters. |
 
 ## Styling
 
@@ -161,7 +164,41 @@ createDOMElem({
 Special attribute handling:
 - **`checked`** — sets the checked property on inputs
 - **`dataset`** — merges `data-*` attributes (e.g. `{ dataset: { id: "foo" } }` becomes `data-id="foo"`)
-- **`class` / `id`** — special characters are automatically stripped
+- **`class` / `id`** — special characters (diacritics) are automatically stripped by default. Set `stripDiacritics: false` to preserve them.
+
+> **Note:** If both `text` and `content` are provided, `text` takes precedence and a warning is logged.
+
+## Managing Event Listeners
+
+The `DOMElem` class tracks event listeners and supports removal:
+
+```ts
+import { DOMElem } from "domelemjs";
+
+const btn = new DOMElem({
+  tag: "button",
+  text: "Click me",
+});
+
+const handler = () => console.log("clicked!");
+btn.addEventListener("click", handler);
+btn.removeEventListener("click", handler);
+
+// Remove all tracked listeners at once
+btn.removeAllListeners();
+```
+
+## HTML Tags
+
+DOMelemJS exports a list of valid HTML tag names:
+
+```ts
+import { HTML_TAGS } from "domelemjs";
+
+if (HTML_TAGS.includes(tag)) {
+  // valid HTML tag
+}
+```
 
 ## Children
 
