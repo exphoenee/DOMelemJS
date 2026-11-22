@@ -264,6 +264,51 @@ const container = createDOMElem({
 });
 ```
 
+## Komponensek
+
+Kész, akadálymentes komponensek a `createDOMElem` fölött (a dev-portfolio oldalról portolva). Az alap stílusokat egyszer kell importálni:
+
+```ts
+import "domelemjs/styles.css"; // or <link rel="stylesheet" href=".../domelemjs.css">
+import { createTabs, createGrid, createCarousel, createTimeline } from "domelemjs";
+```
+
+A tartalom (`ContentInput`) lehet szöveg, DOM node vagy `createDOMElem` opciók. Minden builder fogad `parent`, `append`, `className` opciót.
+
+```ts
+// Tabs: WAI-ARIA pattern, roving tabindex, arrows / Home / End
+const tabs = createTabs({
+  parent: "#app",
+  tabs: [
+    { id: "a", label: "Functional", content: "…" },
+    { id: "b", label: "Technical", content: "…" },
+  ],
+  onChange: (id) => console.log(id),
+});
+tabs.select("b"); tabs.setLabel("a", "Funkcionális");
+
+// Grid: responsive columns (auto-fill, minItemWidth) or a fixed column count
+const grid = createGrid({ parent: "#app", items: [card1, card2], minItemWidth: 300, gap: 24 });
+grid.setItems(filtered);
+
+// Carousel: 3D coverflow, arrows, dots, drag / swipe, keyboard
+const carousel = createCarousel({
+  parent: "#app",
+  slides: [card1, card2, card3],
+  labels: { prev: "Előző", next: "Következő", dot: (n) => `Dia ${n}` },
+});
+carousel.goTo(2);
+
+// Timeline: alternating cards, optional compact mode
+const tl = createTimeline({
+  parent: "#app",
+  items: [{ period: "2021 – now", title: "Developer", subtitle: "Acme", description: "…", badge: "current" }],
+});
+tl.setCompact(true);
+```
+
+Stílus a `--dom-*` CSS változókkal (`--dom-accent`, `--dom-surface`, `--dom-carousel-height`, …); a `style` mostantól CSS custom property-ket is támogat.
+
 ## TypeScript
 
 A DOMelemJS TypeScript-ben íródott és teljes típusdefíciókkal szállítódik.

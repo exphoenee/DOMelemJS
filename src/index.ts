@@ -33,3 +33,5 @@ export type {
   HtmlTag,
 } from "./types";
 export type { HtmlTagConst } from "./htmlTags";
+
+export * from "./components";

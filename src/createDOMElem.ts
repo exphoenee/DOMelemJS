@@ -113,7 +113,9 @@ function applyStyle(elem: HTMLElement, style: StyleInput): void {
       if (colonIndex === -1) return;
       const prop = styleText.slice(0, colonIndex).trim();
       const val = styleText.slice(colonIndex + 1).trim();
-      if (prop) {
+      if (prop.startsWith("--")) {
+        elem.style.setProperty(prop, val); // CSS custom property
+      } else if (prop) {
         const camelProp = makeCamelCase(prop);
         (elem.style as unknown as Record<string, string>)[camelProp] = val;
       }

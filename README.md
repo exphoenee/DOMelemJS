@@ -266,6 +266,51 @@ const container = createDOMElem({
 });
 ```
 
+## Components
+
+Ready-made, accessible components built on `createDOMElem` (ported from the dev-portfolio site). Import the default styles once:
+
+```ts
+import "domelemjs/styles.css"; // or <link rel="stylesheet" href=".../domelemjs.css">
+import { createTabs, createGrid, createCarousel, createTimeline } from "domelemjs";
+```
+
+Content (`ContentInput`) can be a string, a DOM node or `createDOMElem` options. Every builder accepts `parent`, `append`, `className`.
+
+```ts
+// Tabs: WAI-ARIA pattern, roving tabindex, arrows / Home / End
+const tabs = createTabs({
+  parent: "#app",
+  tabs: [
+    { id: "a", label: "Functional", content: "…" },
+    { id: "b", label: "Technical", content: "…" },
+  ],
+  onChange: (id) => console.log(id),
+});
+tabs.select("b"); tabs.setLabel("a", "Funkcionális");
+
+// Grid: responsive columns (auto-fill, minItemWidth) or a fixed column count
+const grid = createGrid({ parent: "#app", items: [card1, card2], minItemWidth: 300, gap: 24 });
+grid.setItems(filtered);
+
+// Carousel: 3D coverflow, arrows, dots, drag / swipe, keyboard
+const carousel = createCarousel({
+  parent: "#app",
+  slides: [card1, card2, card3],
+  labels: { prev: "Előző", next: "Következő", dot: (n) => `Dia ${n}` },
+});
+carousel.goTo(2);
+
+// Timeline: alternating cards, optional compact mode
+const tl = createTimeline({
+  parent: "#app",
+  items: [{ period: "2021 – now", title: "Developer", subtitle: "Acme", description: "…", badge: "current" }],
+});
+tl.setCompact(true);
+```
+
+Style with the `--dom-*` custom properties (`--dom-accent`, `--dom-surface`, `--dom-carousel-height`, …); `style` also supports CSS custom properties now.
+
 ## TypeScript
 
 DOMelemJS is written in TypeScript and ships with full type definitions.

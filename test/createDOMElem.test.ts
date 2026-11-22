@@ -279,3 +279,10 @@ describe("HTML_TAGS export", () => {
     expect(HTML_TAGS).toContain("img");
   });
 });
+
+describe("createDOMElem custom properties", () => {
+  it("supports CSS custom properties in style", () => {
+    const el = createDOMElem({ tag: "div", style: { "--x": "12px" }, append: false });
+    expect(el.style.getPropertyValue("--x")).toBe("12px");
+  });
+});
