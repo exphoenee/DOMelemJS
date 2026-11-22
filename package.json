@@ -12,8 +12,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
-    },
-    "./styles.css": "./dist/domelemjs.css"
+    }
   },
   "files": [
     "dist",
@@ -22,7 +21,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "tsup && node scripts/copy-css.mjs",
+    "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
