@@ -309,6 +309,23 @@ tl.setCompact(true);
 
 Stílus a `--dom-*` CSS változókkal (`--dom-accent`, `--dom-surface`, `--dom-carousel-height`, …); a `style` mostantól CSS custom property-ket is támogat.
 
+### Image és Spinner
+
+A `createImage` maga tölti le a képet, és kezeli a `loading` → `loaded` / `error` állapotokat (a wrapper `data-state` attribútuma tükrözi). Bármilyen spinner injektálható:
+
+```ts
+const img = createImage({
+  parent: "#app",
+  src: "/photo.jpg",
+  alt: "Fotó",
+  spinner: () => createSpinner({ size: 24 }), // node, opciók vagy factory; alap: createSpinner(); false = nincs
+  strategy: "fetch",   // "image" (alap, CORS-barát) | "fetch" (HTTP hibák, megszakítható, CORS kell)
+  retries: 2, timeout: 8000, lazy: true,
+  fallback: "Nem sikerült betölteni",
+});
+img.setSrc("/masik.jpg"); img.reload(); img.destroy();
+```
+
 ## TypeScript
 
 A DOMelemJS TypeScript-ben íródott és teljes típusdefíciókkal szállítódik.

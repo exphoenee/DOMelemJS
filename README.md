@@ -311,6 +311,26 @@ tl.setCompact(true);
 
 Style with the `--dom-*` custom properties (`--dom-accent`, `--dom-surface`, `--dom-carousel-height`, …); `style` also supports CSS custom properties now.
 
+### Image & Spinner
+
+`createImage` fetches the image itself and manages `loading` → `loaded` / `error` (mirrored in the wrapper's `data-state`). Any spinner can be injected:
+
+```ts
+const mySpinner = () => createDOMElem({ tag: "span", text: "⏳", append: false });
+
+const img = createImage({
+  parent: "#app",
+  src: "/photo.jpg",
+  alt: "Photo",
+  spinner: mySpinner,          // node, options or factory; default createSpinner(); false = none
+  strategy: "fetch",           // "image" (default, CORS-safe) | "fetch" (HTTP errors, abortable, CORS needed)
+  retries: 2, timeout: 8000, lazy: true,
+  fallback: (err, retry) => ({ tag: "button", text: "Retry", handleEvent: { event: "click", cb: retry } }),
+  onLoad: (el) => {}, onError: (err) => {},
+});
+img.setSrc("/other.jpg"); img.reload(); img.destroy();
+```
+
 ## TypeScript
 
 DOMelemJS is written in TypeScript and ships with full type definitions.

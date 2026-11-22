@@ -7,3 +7,7 @@ export type { TabItem, TabsOptions, TabsController } from "./createTabs";
 export type { GridOptions, GridController } from "./createGrid";
 export type { CarouselOptions, CarouselController } from "./createCarousel";
 export type { TimelineItem, TimelineOptions, TimelineController } from "./createTimeline";
+export { default as createSpinner } from "./createSpinner";
+export { default as createImage } from "./createImage";
+export type { SpinnerOptions } from "./createSpinner";
+export type { ImageOptions, ImageController, ImageState } from "./createImage";
