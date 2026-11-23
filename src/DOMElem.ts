@@ -1,5 +1,5 @@
 import createDOMElem from "./createDOMElem";
-import type { DOMElemOptions, EventHandler } from "./types";
+import type { DOMElemOptions } from "./types";
 
 /**
  * Wrapper class around {@link createDOMElem}.
